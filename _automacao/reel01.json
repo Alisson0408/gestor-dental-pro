@@ -1,0 +1,7 @@
+{"seed": 3, "cenas": [
+ {"tipo":"hook","tag":"🦷 Para dentistas","texto":"Quanto dinheiro escapa do seu consultório todo mês?","destaque":"escapa","dur":3.2},
+ {"tipo":"painel","titulo":"Some tudo que ficou para trás:","valor":"8.430,00","itens":[["Faltas no mês","R$ 2.250"],["Orçamentos parados","R$ 3.900"],["Parcelas vencidas","R$ 1.840"],["Glosas de convênio","R$ 440"]],"dur":4.2},
+ {"tipo":"lista","tag":"Os 4 vazamentos","titulo":"Não é falta de paciente.","destaque":"falta de paciente","itens":["Faltas e cadeira vazia","Orçamentos que esfriam","Parcelas que não entram","Glosas não contestadas"],"cor":"red","dur":3.8},
+ {"tipo":"acoes","tag":"Gestor Dental PRO","titulo":"Todo dia, a lista do que recuperar.","destaque":"recuperar","itens":[["📅","Confirmar consulta de amanhã","WhatsApp"],["💬","Follow-up orçamento R$ 3.800","Enviar"],["⚠️","Parcela vencida há 6 dias","Cobrar"]],"dur":4.0},
+ {"tipo":"cta","titulo":"Pare de perder o que já era seu.","sub":"Sistema feito só para dentistas","botao":"Teste grátis · link na bio","dur":3.6}
+]}
