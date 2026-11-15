@@ -7,6 +7,7 @@
 <meta name="description" content="Agenda, faltas, orçamentos, financeiro, convênios e prontuário com odontograma. Descubra quanto dinheiro está escapando do seu consultório.">
 <meta property="og:title" content="Gestor Dental PRO"><meta property="og:description" content="Gestão que recupera a receita do consultório odontológico. Teste grátis.">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <script>
 /* =================== CONFIGURAÇÃO — PREENCHA AQUI =================== */
 const CONFIG = {
@@ -158,6 +159,19 @@ tr.alert td{background:var(--redbg)}
  .hero .v{font-size:28px}
 }
 @media (max-width:520px){.g4{grid-template-columns:1fr 1fr}.kpi .v{font-size:20px}.frow{grid-template-columns:1fr}.leak b{font-size:14px}}
+.pixcard{margin:12px 0 4px;border-radius:18px;padding:18px;color:#fff;text-align:center;background:linear-gradient(140deg,#0a3d44 0%,#0e5a63 55%,#147a74 100%);box-shadow:0 12px 30px rgba(10,61,68,.35);border:1px solid rgba(230,197,122,.35)}
+.pixload{opacity:.9;padding:22px 0}
+.pixtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.pixlogo{font-weight:800;letter-spacing:2px;color:var(--gold2)}
+.pixtag{background:rgba(230,197,122,.18);color:var(--gold2);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700}
+.pixfav{background:rgba(255,255,255,.1);border-radius:12px;padding:10px;margin-bottom:12px}.pixfav small{display:block;opacity:.75;font-size:10.5px;text-transform:uppercase;letter-spacing:1.5px}.pixfav b{font-size:18px}
+.pixqr{background:#fff;border-radius:14px;padding:10px;width:190px;max-width:70%;margin:0 auto;border:3px solid var(--gold2)}.pixqr svg{width:100%;height:auto;display:block}
+.pixhint{font-size:12px;opacity:.9;margin:10px 0;line-height:1.45}
+.pixcard .btn{width:100%;justify-content:center;padding:12px;font-size:14px;margin-top:8px}
+.pixbtn{background:linear-gradient(135deg,var(--gold2),var(--gold))!important;border:0!important;color:#2b1d02!important;font-weight:800}
+.pixbtn2{background:transparent!important;color:#fff!important;border:1px solid rgba(255,255,255,.55)!important}
+.pixpaid{background:#1fae5b!important;border:0!important;color:#fff!important;font-weight:800;font-size:15px!important;box-shadow:0 6px 18px rgba(31,174,91,.45)}
+.pixok{background:rgba(255,255,255,.14);border-radius:12px;padding:12px;margin-top:12px;font-size:13px;text-align:left;line-height:1.45}
+.optpg{flex:1;display:flex;gap:8px;align-items:flex-start;border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}.optpg:has(input:checked){border-color:var(--pri);background:var(--grnbg)}.optpg input,#fjp input[type=checkbox]{width:auto!important;flex:none;margin-top:3px}.optpg span{display:flex;flex-direction:column}.optpg small{color:var(--mut)}
 </style>
 </head>
 <body>
@@ -332,7 +346,7 @@ const VIEWS=[
  ['config','Configurações','M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z']
 ];
 function navHtml(m){
- const badge={agenda:0,orcamentos:m.parados.length,financeiro:m.vencidas.length,retorno:m.retorno.length,estoque:m.estBaixo.length,convenios:S.guias.filter(g=>g.status==='enviada'&&dias(g.data,hoje())>30).length};
+ const badge={agenda:0,orcamentos:m.parados.length,financeiro:m.vencidas.length,retorno:m.retorno.length,estoque:m.estBaixo.length,convenios:S.guias.filter(g=>g.status==='enviada'&&dias(g.data,hoje())>30).length,admin:UI.avN||0};
  const so=mode==='nuvem'&&(!CLIN||!ativa(CLIN));
  return VIEWS.filter(([k])=>so?(k==='admin'&&ADMIN)||k==='manual':k==='prontuario'?CLIN_OK:k==='config'?(mode==='local'||PAPEL==='dono'):k==='equipe'?(mode==='nuvem'&&PAPEL==='dono'):k==='admin'?ADMIN:true).map(([k,l,d])=>`<a href="#${k}" class="${UI.view===k?'on':''}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>${l}${badge[k]?`<span class="ct">${badge[k]}</span>`:''}</a>`).join('');
 }
@@ -961,10 +975,49 @@ function telaOnboarding(){let p={};try{p=JSON.parse(localStorage.getItem('gdp_pe
  telaAuth(`<h2>Cadastre sua clínica</h2><p class="muted">Você ganha ${CONFIG.DIAS_TESTE||7} dias grátis para testar tudo.</p><form id="fOn"><div class="f"><label>Nome da clínica</label><input class="inp" name="clinica" required value="${esc(p.clinica||'')}"></div><div class="f"><label>Seu nome</label><input class="inp" name="nome" value="${esc(p.nome||USER.user_metadata?.nome||'')}"></div><div class="f"><label>WhatsApp</label><input class="inp" name="zap" value="${esc(p.zap||'')}"></div><button class="btn p" style="width:100%;justify-content:center" id="bOn">Começar a usar</button></form>
  <p class="small muted" style="margin-top:14px;line-height:1.5">Trabalha numa clínica que já usa o sistema? Não crie outra: peça ao dono para adicionar seu e-mail (<b>${esc(USER.email)}</b>) em <b>Equipe</b> e depois <a href="#" data-auth="recarregar">atualize</a>.</p><p style="text-align:center"><a href="#" data-auth="sair">Sair</a></p>`);
  $('#fOn').onsubmit=e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));ocupado($('#bOn'),async()=>{const {error}=await sb.rpc('criar_clinica',{p_nome:f.clinica,p_whatsapp:f.zap||null,p_nome_usuario:f.nome||null});if(error)throw error;try{localStorage.removeItem('gdp_pend')}catch(_){}toast('Clínica criada! Bom teste 🚀');await carregarSessao()})}}
+/* ---------- PAGAMENTO POR PIX (chave guardada no banco, não no código) ---------- */
+const _pf=(id,v)=>id+String(v.length).padStart(2,'0')+v;
+function _crc16(t){let c=0xFFFF;for(let i=0;i<t.length;i++){c^=t.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,'0')}
+function pixPayload(x){let p=_pf('00','01')+_pf('26',_pf('00','br.gov.bcb.pix')+_pf('01',x.chave))+_pf('52','0000')+_pf('53','986')+_pf('58','BR')+_pf('59',x.nome.slice(0,25))+_pf('60',x.cidade.slice(0,15))+_pf('62',_pf('05','***'))+'6304';return p+_crc16(p)}
+let PIX=null,PIXCODE='';
+async function pixInfo(){if(!PIX&&sb){const {data,error}=await sb.rpc('pix_info');if(!error)PIX=data}return PIX}
+function pixCard(){setTimeout(pixMontar,0);return `<div id="pixcard" class="pixcard"><div class="pixload">Carregando Pix…</div></div>`}
+async function pixMontar(){const el=document.getElementById('pixcard');if(!el)return;const x=await pixInfo();
+ if(!x){el.innerHTML='<div class="pixload">Pix indisponível no momento. Fale conosco pelo WhatsApp.</div>';return}
+ PIXCODE=pixPayload(x);let qr='';try{const q=qrcode(0,'M');q.addData(PIXCODE);q.make();qr=q.createSvgTag({cellSize:4,margin:2,scalable:true})}catch(_){}
+ el.innerHTML=`<div class="pixtop"><span class="pixlogo">◆ PIX</span><span class="pixtag">Sem taxas</span></div>
+  <div class="pixfav"><small>Favorecido</small><b>${esc(x.exibir)}</b></div>
+  ${qr?`<div class="pixqr">${qr}</div><p class="pixhint">Abra o app do seu banco → Pix → <b>Ler QR Code</b></p>`:''}
+  <button type="button" class="btn pixbtn" data-act="pixCopiar" data-t="code">📋 Copiar Pix Copia e Cola</button>
+  <button type="button" class="btn pixbtn2" data-act="pixCopiar" data-t="chave">🔑 Copiar chave Pix</button>
+  <div id="pixav"></div>`;pixStatus()}
+async function pixStatus(){const el=document.getElementById('pixav');if(!el||!CLIN)return;const {data:a}=await sb.rpc('meu_aviso_pendente',{p_clinica:CLIN.id});
+ el.innerHTML=a?`<div class="pixok">⏳ Pagamento <b>${a.tipo==='anual'?'anual':'mensal'}</b> avisado em ${new Date(a.criado_em).toLocaleDateString('pt-BR')}. Aguardando a confirmação da AAS — o acesso é liberado em seguida.</div><button type="button" class="btn pixbtn2" data-act="jaPaguei">Avisar de novo / corrigir</button>`
+  :`<button type="button" class="btn pixpaid" data-act="jaPaguei">✅ Já paguei — avisar a AAS</button><p class="pixhint">Depois de pagar, toque aqui para liberar sua assinatura.</p>`}
+async function pixCopiar(t,b){const x=await pixInfo();if(!x)return;const v=t==='code'?PIXCODE:x.chave;
+ try{await navigator.clipboard.writeText(v)}catch(_){const a=document.createElement('textarea');a.value=v;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}
+ if(b){const o=b.innerHTML;b.innerHTML='✅ Copiado!';setTimeout(()=>b.innerHTML=o,1800)}toast(t==='code'?'Pix Copia e Cola copiado — cole no app do banco':'Chave Pix copiada')}
+function formJaPaguei(){const cls=CLINICAS.length?CLINICAS:[CLIN];
+ abrirModal(`<form id="fjp"><header><h2>✅ Avisar pagamento</h2><button type="button" class="x" data-act="fechar">✕</button></header><div class="bd">
+  <p class="small muted" style="margin:0 0 12px">Escolha o que você pagou. A AAS confere o Pix e libera na hora.</p>
+  <div style="display:flex;gap:10px;margin-bottom:12px"><label class="optpg"><input type="radio" name="tipo" value="mensal" checked><span><b>📅 Mensal</b><small>libera 30 dias</small></span></label><label class="optpg"><input type="radio" name="tipo" value="anual"><span><b>🗓️ Anual</b><small>libera 1 ano</small></span></label></div>
+  <div class="f"><label>Valor pago (R$)</label><input class="inp" name="valor" type="number" step="0.01" min="0" inputmode="decimal" placeholder="Ex.: 139,00"></div>
+  ${cls.length>1?`<div class="f"><label>Clínicas que este pagamento cobre</label>${cls.map(x=>`<label style="display:flex;gap:8px;align-items:center;margin:6px 0;font-weight:500"><input type="checkbox" name="e" value="${x.id}" ${x.id===CLIN.id?'checked':''}> ${esc(x.nome)}</label>`).join('')}</div>`:`<input type="hidden" name="e" value="${cls[0].id}">`}
+  <div class="f"><label>Observação (opcional)</label><input class="inp" name="obs" placeholder="Ex.: pago pelo Itaú às 10h"></div></div>
+  <footer><button type="button" class="btn" data-act="fechar">Cancelar</button><button class="btn p" id="bjp">Enviar aviso</button></footer></form>`);
+ $('#fjp').onsubmit=ev=>{ev.preventDefault();const f=ev.target;const tipo=f.querySelector('input[name=tipo]:checked').value;
+  const ids=[...f.querySelectorAll('input[name=e]')].filter(i=>i.type==='hidden'||i.checked).map(i=>i.value);if(!ids.length)return toast('Marque ao menos uma clínica');
+  const valor=f.valor.value?Number(f.valor.value):null;
+  ocupado($('#bjp'),async()=>{const {error}=await sb.rpc('avisar_pagamento',{p_clinicas:ids,p_tipo:tipo,p_valor:valor,p_obs:f.obs.value||null});if(error)throw error;fecharModal();
+   const nomes=cls.filter(x=>ids.includes(x.id)).map(x=>x.nome).join(' + ');toast('Aviso enviado! Agora mande o comprovante no WhatsApp 💬');
+   if(document.getElementById('pixav'))pixStatus();
+   setTimeout(()=>window.open(zap(`✅ Paguei o Pix do ${CONFIG.NOME_SISTEMA} — plano ${tipo==='anual'?'ANUAL':'MENSAL'}${valor?' (R$ '+valor.toFixed(2).replace('.',',')+')':''}.\nClínica(s): ${nomes}\nSegue o comprovante:`),'_blank'),600)})}}
+function modalPix(){abrirModal(`<header><h2>💠 ${CLIN&&CLIN.status==='teste'?'Assinar':'Renovar'} com Pix</h2><button type="button" class="x" data-act="fechar">✕</button></header><div class="bd">${CONFIG.PRECO_TEXTO?`<p class="small" style="margin:0"><b>${esc(CONFIG.PRECO_TEXTO)}</b></p>`:''}${pixCard()}</div><footer><a class="btn wa" target="_blank" rel="noopener" href="${esc(zap('Olá! Paguei o Pix do '+CONFIG.NOME_SISTEMA+' da clínica '+(CLIN?CLIN.nome:'')+'. Segue o comprovante:'))}">💬 Enviar comprovante</a><button type="button" class="btn" data-act="fechar">Fechar</button></footer>`)}
+
 function telaBloqueio(){const c=CLIN;const motivo=c.status==='bloqueado'?'Seu acesso foi suspenso.':c.status==='teste'?'Seu período de teste terminou.':'Sua assinatura venceu em '+fmtD(c.vencimento)+'.';
  telaAuth(`<div style="text-align:center"><div style="font-size:44px">🔒</div><h2>${motivo}</h2><p class="muted" style="line-height:1.6">Os dados da <b>${esc(c.nome)}</b> estão guardados com segurança. Renove para voltar a usar na hora.${CONFIG.PRECO_TEXTO?`<br><b>${esc(CONFIG.PRECO_TEXTO)}</b>`:''}</p>
- <a class="btn wa" style="width:100%;justify-content:center;padding:11px" target="_blank" rel="noopener" href="${esc(zap('Olá! Quero '+(c.status==='teste'?'assinar':'renovar')+' o '+CONFIG.NOME_SISTEMA+' da clínica '+c.nome))}">💬 ${c.status==='teste'?'Assinar':'Renovar'} pelo WhatsApp</a><p class="small muted">WhatsApp: +${esc(digs(CONFIG.WHATSAPP_SUPORTE))}</p>
- <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap"><button class="btn s" data-auth="recarregar">Já paguei — atualizar</button>${CLINICAS.length>1?'<button class="btn s" data-auth="trocar">Outra clínica</button>':''}<button class="btn s" data-auth="sair">Sair</button></div></div>`)}
+ ${pixCard()}<a class="btn wa" style="width:100%;justify-content:center;padding:11px;margin-top:10px" target="_blank" rel="noopener" href="${esc(zap('Olá! Paguei o Pix do '+CONFIG.NOME_SISTEMA+' da clínica '+c.nome+'. Segue o comprovante:'))}">💬 Enviar comprovante pelo WhatsApp</a><p class="small muted">WhatsApp: +${esc(digs(CONFIG.WHATSAPP_SUPORTE))}</p>
+ <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap"><button class="btn s" data-auth="recarregar">Já fui liberado — atualizar</button>${CLINICAS.length>1?'<button class="btn s" data-auth="trocar">Outra clínica</button>':''}<button class="btn s" data-auth="sair">Sair</button></div></div>`)}
 document.addEventListener('click',e=>{const el=e.target.closest('[data-auth]');if(!el)return;e.preventDefault();const a=el.dataset.auth;
  if(a==='sair')sair();else if(a==='recarregar')carregarSessao();else if(a==='trocar')escolherClinica();else telaLogin(a)});
 async function sair(){MAN=null;try{if(CANAL)sb.removeChannel(CANAL)}catch(_){}await sb.auth.signOut();USER=CLIN=null;ALLC.forEach(c=>S[c]=[]);UI.view='painel';location.hash='';telaLogin('entrar')}
@@ -977,6 +1030,7 @@ async function carregarSessao(){
  const [mem,adm]=await Promise.all([sb.from('membros').select('papel,clinica_id,clinicas(*)').eq('user_id',USER.id),sb.from('admins').select('user_id').eq('user_id',USER.id)]);
  if(mem.error){toast(traduz(mem.error));return telaLogin()}
  ADMIN=!!(adm.data&&adm.data.length);
+ if(ADMIN){sb.rpc('admin_avisos').then(r=>{UI.avN=(r.data||[]).length;if(UI.avN){toast('🔔 '+UI.avN+' aviso(s) de pagamento — veja no Admin');try{montarLateral()}catch(_){}}})}
  CLINICAS=(mem.data||[]).filter(m=>m.clinicas).map(m=>({...m.clinicas,papel:m.papel})).sort((a,b)=>a.nome.localeCompare(b.nome));
  let pref=null;try{pref=localStorage.getItem('gdp_clin')}catch(_){}
  const c=CLINICAS.find(x=>x.id===pref)||CLINICAS.find(ativa)||CLINICAS[0];
@@ -1025,8 +1079,8 @@ function montarLateral(){
 function bannerTopo(){
  if(mode==='local')return `<div class="note blue" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1"><b>🎬 Você está na demonstração.</b> Os dados são fictícios e ficam só neste navegador — nada aqui afeta sua clínica.</span>${botoesDemo()}</div>`;
  if(!CLIN||UI.view==='admin')return '';const d=dias(hoje(),CLIN.vencimento);
- if(CLIN.status==='teste')return `<div class="note" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1">🎁 <b>Período de teste:</b> ${d>0?`faltam ${d} dia(s)`:'hoje é o último dia'}.${CONFIG.PRECO_TEXTO?' '+esc(CONFIG.PRECO_TEXTO)+'.':''}</span>${PAPEL==='dono'?`<a class="btn s wa" target="_blank" rel="noopener" href="${esc(zap('Quero assinar o '+CONFIG.NOME_SISTEMA+' para a clínica '+CLIN.nome))}">Assinar agora</a>`:''}</div>`;
- if(d<=3)return `<div class="note" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1">⏰ Sua assinatura vence ${d<=0?'hoje':'em '+d+' dia(s)'} (${fmtD(CLIN.vencimento)}).</span>${PAPEL==='dono'?`<a class="btn s wa" target="_blank" rel="noopener" href="${esc(zap('Quero renovar o '+CONFIG.NOME_SISTEMA+' da clínica '+CLIN.nome))}">Renovar</a>`:''}</div>`;
+ if(CLIN.status==='teste')return `<div class="note" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1">🎁 <b>Período de teste:</b> ${d>0?`faltam ${d} dia(s)`:'hoje é o último dia'}.${CONFIG.PRECO_TEXTO?' '+esc(CONFIG.PRECO_TEXTO)+'.':''}</span>${PAPEL==='dono'?`<button class="btn s g" data-act="pagarPix">💠 Assinar com Pix</button>`:''}</div>`;
+ if(d<=3)return `<div class="note" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1">⏰ Sua assinatura vence ${d<=0?'hoje':'em '+d+' dia(s)'} (${fmtD(CLIN.vencimento)}).</span>${PAPEL==='dono'?`<button class="btn s g" data-act="pagarPix">💠 Renovar com Pix</button>`:''}</div>`;
  return '';
 }
 
@@ -1046,7 +1100,7 @@ function vEquipe(){
 document.addEventListener('change',async e=>{const s=e.target.closest('[data-papel]');if(!s)return;const {error}=await sb.rpc('alterar_membro',{p_clinica:CLIN.id,p_user:s.dataset.papel,p_papel:s.value});if(error)erroSB(error);else{toast('Perfil alterado');carregarEquipe()}});
 
 /* ---------- ADMIN ---------- */
-async function carregarAdmin(){const {data,error}=await sb.rpc('admin_clinicas');if(error){toast(traduz(error));return}UI.adm=data||[];render()}
+async function carregarAdmin(){const [r,av]=await Promise.all([sb.rpc('admin_clinicas'),sb.rpc('admin_avisos')]);if(r.error){toast(traduz(r.error));return}UI.adm=r.data||[];UI.av=av.data||[];UI.avN=UI.av.length;render();try{montarLateral()}catch(_){}}
 function vAdmin(){
  if(!ADMIN)return topo('Admin')+`<div class="card">${vazio('Acesso restrito','')}</div>`;
  if(!UI.adm){carregarAdmin();return topo('Painel de clientes')+'<div class="card"><div class="empty">Carregando…</div></div>'}
@@ -1055,7 +1109,7 @@ function vAdmin(){
  const ativos=UI.adm.filter(c=>c.status==='ativo'&&c.vencimento>=t),teste=UI.adm.filter(c=>c.status==='teste'&&c.vencimento>=t),venc=UI.adm.filter(c=>c.status==='bloqueado'||c.vencimento<t);
  const vence7=ativos.filter(c=>dias(t,c.vencimento)<=7);
  return topo('Painel de clientes','Todas as clínicas que usam o sistema',`<button class="btn" data-act="admRecarregar">Atualizar</button>`)+
- `<div class="grid g4" style="margin-bottom:14px">${kpi('Clínicas pagantes',ativos.length,`Receita mensal estimada ${brl(ativos.length*(+CONFIG.PRECO_MENSAL||0))}`,'ok')}${kpi('Em teste grátis',teste.length,'Converter em assinatura','warn')}${kpi('Vencem em 7 dias',vence7.length,'Cobrar renovação',vence7.length?'warn':'')}${kpi('Vencidas / bloqueadas',venc.length,'Recuperar ou encerrar',venc.length?'bad':'')}</div>
+ `${(UI.av||[]).length?`<div class="card" style="margin-bottom:14px;border:2px solid var(--gold)"><h3>🔔 Avisos de pagamento (${UI.av.length})</h3>${UI.av.map(a=>`<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line)"><div style="flex:1;min-width:220px"><b>${esc(a.nomes||'')}</b><br><span class="pill ${a.tipo==='anual'?'blu':'grn'}">${a.tipo==='anual'?'🗓️ Anual → +1 ano':'📅 Mensal → +30 dias'}</span> ${a.valor!=null?'<b>'+brl(a.valor)+'</b>':''}<div class="small muted" style="margin-top:4px">${esc(a.email||'')} · ${new Date(a.criado_em).toLocaleString('pt-BR')}${a.obs?' · '+esc(a.obs):''}</div></div><div class="acts"><button class="btn s p" data-act="admAviso" data-id="${a.id}" data-ok="1">✅ Confirmar</button><button class="btn s d" data-act="admAviso" data-id="${a.id}" data-ok="0">Recusar</button></div></div>`).join('')}<p class="small muted" style="margin-top:8px">Confira se o Pix caiu na sua conta antes de confirmar. Ao confirmar, o sistema renova sozinho (+30 dias ou +1 ano) as clínicas do aviso.</p></div>`:''}<div class="grid g4" style="margin-bottom:14px">${kpi('Clínicas pagantes',ativos.length,`Receita mensal estimada ${brl(ativos.length*(+CONFIG.PRECO_MENSAL||0))}`,'ok')}${kpi('Em teste grátis',teste.length,'Converter em assinatura','warn')}${kpi('Vencem em 7 dias',vence7.length,'Cobrar renovação',vence7.length?'warn':'')}${kpi('Vencidas / bloqueadas',venc.length,'Recuperar ou encerrar',venc.length?'bad':'')}</div>
  <div class="card"><div class="bar"><input class="inp" id="busca" placeholder="Buscar clínica ou e-mail…" value="${esc(UI.q)}" style="flex:1;max-width:380px"></div>
  ${ls.length?`<div class="tw"><table><thead><tr><th>Clínica</th><th>Status</th><th>Vencimento</th><th>Uso</th><th class="right">Ações</th></tr></thead><tbody>${ls.map(c=>{const [l,cl]=st(c);return `<tr><td><b>${esc(c.nome)}</b><div class="small muted">${esc(c.dono_email||'')} · desde ${fmtD(String(c.criado_em).slice(0,10))}</div></td><td><span class="pill ${cl}">${l}</span></td><td class="nowrap">${fmtD(c.vencimento)}<div class="small muted">${dias(t,c.vencimento)>=0?'faltam '+dias(t,c.vencimento)+' dias':'há '+(-dias(t,c.vencimento))+' dias'}</div></td><td class="small">${c.pacientes} pacientes · ${c.membros} usuário(s)<div class="muted">último uso ${c.ultimo_uso?fmtD(String(c.ultimo_uso).slice(0,10)):'—'}</div></td>
  <td><div class="acts">${c.whatsapp?`<a class="btn s wa" target="_blank" rel="noopener" href="https://wa.me/${digs(c.whatsapp).length<=11?'55':''}${digs(c.whatsapp)}?text=${encodeURIComponent('Olá! Aqui é da '+CONFIG.NOME_SISTEMA+'. ')}">WhatsApp</a>`:''}<button class="btn s p" data-act="admRenovar" data-id="${c.id}" data-d="30">+30 dias</button><button class="btn s" data-act="admRenovar" data-id="${c.id}" data-d="365">+1 ano</button>${c.status==='bloqueado'?`<button class="btn s" data-act="admStatus" data-id="${c.id}" data-s="ativo">Desbloquear</button>`:`<button class="btn s d" data-act="admStatus" data-id="${c.id}" data-s="bloqueado">Bloquear</button>`}</div></td></tr>`}).join('')}</tbody></table></div>`:vazio('Nenhuma clínica ainda','Quando alguém criar conta, ela aparece aqui.')}</div>`;
@@ -1066,6 +1120,11 @@ Object.assign(A,{
  remMembro:async d=>{if(!(await ask('Remover o acesso desta pessoa à clínica?','Remover',true)))return;const {error}=await sb.rpc('alterar_membro',{p_clinica:CLIN.id,p_user:d.id,p_papel:null});if(error)erroSB(error);else{toast('Acesso removido');carregarEquipe()}},
  canConvite:async d=>{const {error}=await sb.rpc('cancelar_convite',{p_clinica:CLIN.id,p_email:d.email});if(error)erroSB(error);else carregarEquipe()},
  admRecarregar:()=>{UI.adm=null;render()},
+ admAviso:async d=>{const a=(UI.av||[]).find(x=>x.id===d.id);const ok=d.ok==='1';if(!(await ask(ok?`Confirmar o pagamento <b>${a.tipo==='anual'?'anual (+1 ano)':'mensal (+30 dias)'}</b> de <b>${esc(a.nomes)}</b>? Confira se o Pix caiu antes.`:'Recusar este aviso? A assinatura não será renovada.',ok?'Confirmar':'Recusar',!ok)))return;
+  const {error}=await sb.rpc('admin_resolver_aviso',{p_id:d.id,p_ok:ok});if(error)erroSB(error);else{toast(ok?'Renovado '+(a.tipo==='anual'?'por 1 ano':'por 30 dias')+' ✓':'Aviso recusado');carregarAdmin()}},
+ pagarPix:()=>modalPix(),
+ jaPaguei:()=>formJaPaguei(),
+ pixCopiar:d=>pixCopiar(d.t,document.activeElement&&document.activeElement.dataset&&document.activeElement.dataset.act==='pixCopiar'?document.activeElement:null),
  admRenovar:async d=>{const c=UI.adm.find(x=>x.id===d.id);if(!(await ask(`Adicionar <b>${d.d} dias</b> para <b>${esc(c.nome)}</b>? O acesso é liberado na hora.`,'Confirmar')))return;const {data,error}=await sb.rpc('admin_renovar',{p_clinica:d.id,p_dias:+d.d});if(error)erroSB(error);else{toast('Liberado até '+fmtD(data));carregarAdmin()}},
  admStatus:async d=>{if(d.s==='bloqueado'&&!(await ask('Bloquear esta clínica? Os dados ficam guardados.','Bloquear',true)))return;const {error}=await sb.rpc('admin_status',{p_clinica:d.id,p_status:d.s});if(error)erroSB(error);else carregarAdmin()},
  exportar:async()=>{const dados={geradoEm:new Date().toISOString(),sistema:CONFIG.NOME_SISTEMA,clinica:CLIN?CLIN.nome:'demo',config:S.config};(CLIN_OK?ALLC:COLS).forEach(c=>dados[c]=S[c]);
