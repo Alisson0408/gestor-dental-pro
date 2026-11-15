@@ -16,7 +16,7 @@ O roteiro é uma lista de cenas/slides. Tipos:
   cta      {"titulo","sub"}
 Cada cena de reel aceita "dur" (segundos, padrão 3.2).
 """
-import json, sys, subprocess, pathlib, math, wave, struct, random
+import os, json, sys, subprocess, pathlib, math, wave, struct, random
 
 BASE = pathlib.Path(__file__).resolve().parent
 F = (BASE / 'fonts').as_uri()
@@ -89,7 +89,8 @@ def scene_html(s, reel):
         o += h1(s['titulo'], s.get('destaque'), int(88*big))
         o += '<div style="margin-top:50px">' + ''.join(f'<div class="li a" data-in="{.7+i*.32:.2f}"><i style="background:{bg};color:{fg}">{ic}</i>{esc(x)}</div>' for i,x in enumerate(s['itens'])) + '</div>'
     elif k == 'numero':
-        o += f'<div class="big a" data-in=".3" style="font-size:{int(230*big)}px;margin-top:60px"><em>{esc(s["numero"])}</em></div>'
+        fs = int(min(230, 880 / max(1, len(str(s["numero"])) * 0.6)) * big)
+        o += f'<div class="big a" data-in=".3" style="font-size:{fs}px;margin-top:60px;white-space:nowrap"><em>{esc(s["numero"])}</em></div>'
         o += f'<p class="sub a" data-in=".8" style="margin-top:36px;color:#fff;font-size:46px;font-weight:700">{esc(s["texto"])}</p>'
         if s.get('nota'): o += f'<p class="sub a" data-in="1.4" style="margin-top:34px">{esc(s["nota"])}</p>'
     elif k == 'barras':
@@ -167,7 +168,7 @@ def musica(path, dur, seed=7):
 
 def carregar(pg, html):
     """Abre o HTML a partir de um arquivo local (necessário para carregar as fontes)."""
-    tmp = BASE / '.render.html'
+    tmp = BASE / f'.render-{os.getpid()}.html'
     tmp.write_text(html, encoding='utf-8')
     pg.goto(tmp.as_uri()); pg.evaluate('document.fonts.ready'); pg.wait_for_timeout(300)
 
