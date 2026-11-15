@@ -57,7 +57,7 @@ O motor fica em `_automacao/motor.py` (Python + Playwright + ffmpeg; fontes em `
    - Textos curtos: título até ~50 caracteres; itens até ~32.
 2. Gere: `python3 _automacao/motor.py reel <roteiro> midia/reels/AAAA-MM-DD.mp4` ou `python3 _automacao/motor.py carrossel <roteiro> midia/carrosseis/AAAA-MM-DD/`.
 3. CONFIRA visualmente: extraia 3–4 quadros do vídeo (ffmpeg -ss) ou abra os slides; corrija texto cortado, sobreposto ou ilegível antes de publicar.
-4. Faça commit e push de `midia/` e `_automacao/` (autor Alisson0408 <as9720476@gmail.com>). Espere ~60 s o GitHub Pages publicar. URL pública: `https://dental.aastecnologiaeditorial.com.br/<caminho>`.
+4. Faça commit e push de `midia/` e `_automacao/` (autor Alisson0408 <Alisson0408@users.noreply.github.com>). Espere ~60 s o GitHub Pages publicar. URL pública: `https://dental.aastecnologiaeditorial.com.br/<caminho>`.
 5. Publique pelo vidIQ: vídeo → `vidiq_video_upload` (url); imagens → `vidiq_upload_image` (uma por slide, em ordem). Depois `vidiq_social_post_draft_create` (destino INSTAGRAM, platformAccountId 28402101609463101, media na ordem, text = legenda) e `vidiq_social_post_publish`. Confirme com `vidiq_social_post_status` e pegue o link.
 6. Atualize `historico.json` (data, formato, pilar, gancho, horário, link, aprendizado) e faça commit/push.
 7. Mensagem final curta ao Alisson: o que foi publicado (gancho + link) ou o problema.
