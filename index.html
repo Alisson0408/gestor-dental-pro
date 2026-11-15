@@ -994,16 +994,20 @@ function assinar(){
  ['registros',...(CLIN_OK?['clinicos']:[])].forEach(t=>{ch.on('postgres_changes',{event:'INSERT',schema:'public',table:t,filter:'clinica_id=eq.'+id},up).on('postgres_changes',{event:'UPDATE',schema:'public',table:t,filter:'clinica_id=eq.'+id},up).on('postgres_changes',{event:'DELETE',schema:'public',table:t},dl)});
  CANAL=ch.subscribe(st=>setSync(st==='SUBSCRIBED',st==='SUBSCRIBED'?'Sincronizado em tempo real':'Reconectando…'));
 }
+const temSessao=()=>{try{return Object.keys(localStorage).some(k=>/^sb-.*-auth-token$/.test(k))}catch(_){return false}};
+const urlSair=()=>location.pathname;
+function botoesDemo(){return `<a class="btn s" href="${urlSair()}" data-sairdemo="1">⟵ Sair da demonstração</a>${temSessao()?'':`<a class="btn s g" href="${urlSair()}">Criar conta grátis</a>`}`}
 function montarLateral(){
  const el=$('#sync');if(!el)return;
- if(mode==='local'){el.innerHTML=`<div style="color:#e6c57a;font-weight:700;margin-bottom:4px">Demonstração</div>Os dados ficam só neste navegador.<a class="btn g s" style="margin-top:8px;width:100%;justify-content:center" href="${location.pathname}">Criar conta grátis</a>`;return}
+ if(mode==='local'){el.innerHTML=`<div style="color:#e6c57a;font-weight:700;margin-bottom:4px">🎬 Modo demonstração</div>Dados fictícios, só neste navegador.<a class="btn s" style="margin-top:8px;width:100%;justify-content:center;background:#fff;color:var(--ink);font-weight:700" href="${urlSair()}">⟵ Sair da demonstração</a>${temSessao()?'':`<a class="btn g s" style="margin-top:6px;width:100%;justify-content:center" href="${urlSair()}">Criar conta grátis</a>`}`;return}
  const dl=CLIN?dias(hoje(),CLIN.vencimento):0;
  el.innerHTML=`${CLIN?`<div style="color:#fff;font-weight:700">${esc(CLIN.nome)}</div><div><span class="pill" style="background:rgba(199,154,59,.2);color:#e6c57a;margin:4px 0">${PAPEIS[PAPEL]||''}</span>${CLIN.status==='teste'?` <span class="pill" style="background:rgba(255,255,255,.1);color:#fff">Teste: ${dl>0?dl+' dia(s)':'último dia'}</span>`:''}</div>`:''}
   <div style="word-break:break-all">${esc(USER?USER.email:'')}</div><div id="syncSt" style="margin:4px 0"></div>
+  <a class="btn g s" style="margin:6px 0 4px;width:100%;justify-content:center" href="?demo">🎬 Ver demonstração</a>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">${CLINICAS.length>1?'<a href="#" data-auth="trocar" style="color:#e6c57a">Trocar clínica</a>':''}<a href="#" data-auth="sair" style="color:#e6c57a">Sair</a></div>`;
 }
 function bannerTopo(){
- if(mode==='local')return `<div class="note blue" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1"><b>Você está na demonstração.</b> Os dados são fictícios e ficam só neste navegador.</span><a class="btn s g" href="${location.pathname}">Criar conta grátis</a></div>`;
+ if(mode==='local')return `<div class="note blue" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1"><b>🎬 Você está na demonstração.</b> Os dados são fictícios e ficam só neste navegador — nada aqui afeta sua clínica.</span>${botoesDemo()}</div>`;
  if(!CLIN||UI.view==='admin')return '';const d=dias(hoje(),CLIN.vencimento);
  if(CLIN.status==='teste')return `<div class="note" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1">🎁 <b>Período de teste:</b> ${d>0?`faltam ${d} dia(s)`:'hoje é o último dia'}.${CONFIG.PRECO_TEXTO?' '+esc(CONFIG.PRECO_TEXTO)+'.':''}</span>${PAPEL==='dono'?`<a class="btn s wa" target="_blank" rel="noopener" href="${esc(zap('Quero assinar o '+CONFIG.NOME_SISTEMA+' para a clínica '+CLIN.nome))}">Assinar agora</a>`:''}</div>`;
  if(d<=3)return `<div class="note" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1">⏰ Sua assinatura vence ${d<=0?'hoje':'em '+d+' dia(s)'} (${fmtD(CLIN.vencimento)}).</span>${PAPEL==='dono'?`<a class="btn s wa" target="_blank" rel="noopener" href="${esc(zap('Quero renovar o '+CONFIG.NOME_SISTEMA+' da clínica '+CLIN.nome))}">Renovar</a>`:''}</div>`;
