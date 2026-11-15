@@ -74,9 +74,9 @@ def h1(texto, destaque, size):
     return f'<h1 class="a" data-in=".25" style="font-size:{size}px;margin-top:36px">{t}</h1>'
 
 def scene_html(s, reel):
-    k = s['tipo']; o = top() + ('<div class="sp"></div>' if reel else '')
+    k = s['tipo']; o = top() + '<div class="sp"></div>'
     big = 1.0 if reel else 0.86
-    if s.get('tag'): o += f'<div class="tag a" data-in=".1" style="margin-top:{0 if reel else 60}px">{esc(s["tag"])}</div>'
+    if s.get('tag'): o += f'<div class="tag a" data-in=".1" style="margin-top:0">{esc(s["tag"])}</div>'
     if k == 'hook':
         o += h1(s['texto'], s.get('destaque'), int(118*big))
         if s.get('sub'): o += f'<p class="sub a" data-in=".9" style="margin-top:40px">{esc(s["sub"])}</p>'
@@ -108,7 +108,7 @@ def scene_html(s, reel):
         o += h1(s['titulo'], s.get('destaque'), int(84*big))
         o += '<div class="todo a" data-in=".6" style="margin-top:56px">' + ''.join(f'<div class="a" data-in="{.9+i*.35:.2f}">{esc(ic)} {esc(tx)}<em>{esc(bt)}</em></div>' for i,(ic,tx,bt) in enumerate(s['itens'])) + '</div>'
     elif k == 'cta':
-        o += f'<div class="a" data-in=".1" style="margin:{0 if reel else 80}px auto 0;width:{300 if reel else 240}px;height:{300 if reel else 240}px;border-radius:80px;background:linear-gradient(135deg,#f6e1a6,#c79a3b);display:grid;place-items:center;box-shadow:0 40px 100px rgba(199,154,59,.45)">{TOOTH.format(s=180 if reel else 140,c="#0a3d44")}</div>'
+        o += f'<div class="a" data-in=".1" style="margin:0 auto;width:{300 if reel else 240}px;height:{300 if reel else 240}px;border-radius:80px;background:linear-gradient(135deg,#f6e1a6,#c79a3b);display:grid;place-items:center;box-shadow:0 40px 100px rgba(199,154,59,.45)">{TOOTH.format(s=180 if reel else 140,c="#0a3d44")}</div>'
         o += f'<h1 class="a" data-in=".4" style="font-size:{int(96*big)}px;margin-top:70px;text-align:center">{esc(s["titulo"])}</h1>'
         if s.get('sub'): o += f'<p class="sub a" data-in=".8" style="margin-top:30px;text-align:center">{esc(s["sub"])}</p>'
         o += f'<div class="a" data-in="1.1" style="text-align:center;margin-top:60px"><span class="cta">{esc(s.get("botao","Teste grátis por 7 dias"))}</span></div>'
@@ -165,6 +165,12 @@ def musica(path, dur, seed=7):
     with wave.open(str(path), 'wb') as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(data)
 
+def carregar(pg, html):
+    """Abre o HTML a partir de um arquivo local (necessário para carregar as fontes)."""
+    tmp = BASE / '.render.html'
+    tmp.write_text(html, encoding='utf-8')
+    pg.goto(tmp.as_uri()); pg.evaluate('document.fonts.ready'); pg.wait_for_timeout(300)
+
 def reel(spec, out):
     from playwright.sync_api import sync_playwright
     scenes = spec['cenas'] if isinstance(spec, dict) else spec
@@ -174,7 +180,7 @@ def reel(spec, out):
     ff = subprocess.Popen(['ffmpeg','-y','-loglevel','error','-f','image2pipe','-framerate',str(fps),'-c:v','mjpeg','-i','-','-c:v','libx264','-preset','veryfast','-crf','20','-pix_fmt','yuv420p','-r',str(fps),str(silent)], stdin=subprocess.PIPE)
     with sync_playwright() as p:
         b = p.chromium.launch(); pg = b.new_page(viewport={'width':1080,'height':1920})
-        pg.set_content(html); pg.evaluate('document.fonts.ready'); pg.wait_for_timeout(400)
+        carregar(pg, html)
         for i in range(nf):
             pg.evaluate(f'setT({i/fps})')
             ff.stdin.write(pg.screenshot(type='jpeg', quality=92))
@@ -193,7 +199,7 @@ def carrossel(spec, outdir):
         b = p.chromium.launch(); pg = b.new_page(viewport={'width':1080,'height':1350})
         for i, s in enumerate(slides, 1):
             html, _ = page([dict(s, dur=1)], False, 1080, 1350)
-            pg.set_content(html); pg.evaluate('document.fonts.ready'); pg.wait_for_timeout(250)
+            carregar(pg, html)
             pg.evaluate('showAll(); setT(0.999); showAll(); document.querySelectorAll("[data-grow]").forEach(e=>e.style.width=e.dataset.grow+"%"); document.querySelectorAll("[data-count]").forEach(e=>e.textContent="R$ "+e.dataset.count); document.querySelector(".scene").style.transform="none"')
             pg.screenshot(path=str(outdir / f'{i:02d}.jpg'), type='jpeg', quality=92)
         b.close()
