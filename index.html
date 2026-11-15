@@ -952,7 +952,7 @@ function traduz(e){const m=String((e&&e.message)||e||'');
 
 function telaConfig(){telaAuth(`<h2>Sistema ainda não configurado</h2><p class="muted">Preencha o endereço e a chave do Supabase no topo do arquivo <b>index.html</b>, como explicado no LEIA-ME.</p><a class="btn g" style="justify-content:center;width:100%;margin-top:14px" href="?demo">Ver demonstração</a>`)}
 function telaLogin(tab){
- tab=tab||UI.authTab||'entrar';UI.authTab=tab;
+ tab=tab||UI.authTab||(/[?&]cadastro/.test(location.search)?'criar':'entrar');UI.authTab=tab;
  telaAuth(`${tab!=='recuperar'?`<div class="tabs" style="display:flex;margin-bottom:16px"><button class="${tab==='entrar'?'on':''}" style="flex:1" data-auth="entrar">Entrar</button><button class="${tab==='criar'?'on':''}" style="flex:1" data-auth="criar">Criar conta grátis</button></div>`:'<h2>Recuperar senha</h2>'}
  <form id="fAuth">${tab==='criar'?`<div class="f"><label>Seu nome</label><input class="inp" name="nome" required placeholder="Ex.: Dra. Camila Andrade"></div><div class="f"><label>Nome da clínica</label><input class="inp" name="clinica" placeholder="Ex.: Clínica Sorriso Pleno"><span class="small muted">Foi convidado por uma clínica? Deixe em branco.</span></div><div class="f"><label>WhatsApp</label><input class="inp" name="zap" type="tel" placeholder="(34) 99999-9999"></div>`:''}
  <div class="f"><label>E-mail</label><input class="inp" name="email" type="email" required autocomplete="email"></div>
