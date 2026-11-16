@@ -1,0 +1,9 @@
+{"slides": [
+ {"tipo": "hook", "tag": "Orçamentos", "texto": "O paciente disse “vou pensar”. E ninguém ligou de volta.", "destaque": "ninguém ligou de volta"},
+ {"tipo": "hook", "tag": "Calma", "texto": "“Vou pensar” ainda não é “não”.", "destaque": "não é “não”", "sub": "Mas tem prazo de validade."},
+ {"tipo": "barras", "tag": "Chance de fechar", "titulo": "O tempo joga contra você.", "destaque": "contra você", "barras": [["Retomado em até 15 dias", "50% a 70%", 70, "green"], ["Depois de 30 dias", "menos de 10%", 9, "red"]]},
+ {"tipo": "lista", "tag": "Por que esfria", "titulo": "Na correria, o orçamento some:", "itens": ["Fica na gaveta", "Ninguém sabe quem liga", "Não tem data de retorno"], "cor": "red"},
+ {"tipo": "lista", "tag": "Régua de follow-up", "titulo": "Retome em 3, 7, 15 e 30 dias.", "destaque": "3, 7, 15 e 30 dias", "itens": ["Dia 3: tirar dúvidas", "Dia 7: relembrar o plano", "Dia 15: a melhor chance", "Dia 30: reabrir a conversa"], "cor": "gold"},
+ {"tipo": "checks", "tag": "No Gestor Dental PRO", "titulo": "O sistema lembra por você:", "itens": ["Funil de orçamentos", "Follow-up em 3, 7, 15 e 30 dias", "Alerta de parado há +7 dias", "Aprovou? Parcelas geradas sozinhas"]},
+ {"tipo": "cta", "titulo": "Não deixe o “vou pensar” virar “não”.", "sub": "Sistema feito só para dentistas", "botao": "Salve e mostre à recepção", "rodape": "Teste grátis por 7 dias · link na bio"}
+]}
