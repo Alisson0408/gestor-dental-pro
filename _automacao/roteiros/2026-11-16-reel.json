@@ -1,0 +1,7 @@
+{"seed": 37, "cenas": [
+ {"tipo": "hook", "tag": "🦷 Para dentistas", "texto": "Você atendeu. O paciente não pagou.", "destaque": "não pagou", "sub": "E ninguém da clínica cobrou.", "dur": 3.4},
+ {"tipo": "numero", "tag": "Média dos consultórios", "numero": "6,7%", "texto": "de inadimplência", "nota": "Cobrar dá vergonha — então a parcela fica para depois.", "dur": 3.8},
+ {"tipo": "lista", "tag": "Onde o dinheiro trava", "titulo": "Parcela vence e ninguém vê.", "destaque": "ninguém vê", "itens": ["Parcela vencida esquecida", "Cobrança só quando lembra", "Recado sem jeito no WhatsApp", "Caixa que não fecha"], "cor": "red", "dur": 4.0},
+ {"tipo": "checks", "tag": "Gestor Dental PRO", "titulo": "Cobrança educada, sem climão.", "destaque": "sem climão", "itens": ["Vencidas em uma lista só", "Mensagem pronta no WhatsApp", "Você só clica em enviar", "Parcelas geradas sozinhas"], "dur": 4.4},
+ {"tipo": "cta", "titulo": "Receba sem constrangimento.", "sub": "Sistema feito só para dentistas", "botao": "Teste grátis · link na bio", "dur": 3.6}
+]}
