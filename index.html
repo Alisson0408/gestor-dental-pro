@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script>try{if(localStorage.getItem('gd_tema')==='escuro')document.documentElement.dataset.tema='escuro'}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gestor Dental PRO — gestão para consultórios odontológicos</title>
@@ -172,6 +173,37 @@ tr.alert td{background:var(--redbg)}
 .pixpaid{background:#1fae5b!important;border:0!important;color:#fff!important;font-weight:800;font-size:15px!important;box-shadow:0 6px 18px rgba(31,174,91,.45)}
 .pixok{background:rgba(255,255,255,.14);border-radius:12px;padding:12px;margin-top:12px;font-size:13px;text-align:left;line-height:1.45}
 .optpg{flex:1;display:flex;gap:8px;align-items:flex-start;border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}.optpg:has(input:checked){border-color:var(--pri);background:var(--grnbg)}.optpg input,#fjp input[type=checkbox]{width:auto!important;flex:none;margin-top:3px}.optpg span{display:flex;flex-direction:column}.optpg small{color:var(--mut)}
+
+.temabtn{display:flex;align-items:center;gap:10px;width:100%;margin-top:auto;margin-bottom:10px;padding:10px 12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);border-radius:10px;cursor:pointer;color:#fff;font-weight:600;font-size:13px;text-align:left}
+.temabtn:hover{background:rgba(255,255,255,.09);border-color:rgba(230,197,122,.5)}
+.temabtn .tl{flex:1;display:flex;flex-direction:column;line-height:1.2}.temabtn .tl small{font-size:11px;color:#9fbcc0;font-weight:500}
+.temabtn .sw{position:relative;width:40px;height:20px;border-radius:99px;border:1.5px solid #9fbcc0;flex:none;transition:.2s}
+.temabtn .sw b{position:absolute;top:2.5px;left:3px;width:12px;height:12px;border-radius:50%;background:#9fbcc0;transition:.2s}
+html[data-tema="escuro"] .temabtn .sw{background:var(--gold);border-color:var(--gold)}
+html[data-tema="escuro"] .temabtn .sw b{left:22px;background:#fff}
+.temabtn+.sync{margin-top:0}
+html[data-tema="escuro"]{--bg:#0b1a1f;--card:#11252b;--ink:#e6eef0;--mut:#93a8b0;--line:#213a41;--pri:#3fa7b1;--pri2:#0a3d44;
+--red:#ff6b6b;--redbg:rgba(255,107,107,.13);--amb:#f0b552;--ambbg:rgba(240,181,82,.13);--grn:#45c98d;--grnbg:rgba(69,201,141,.13);--blu:#7aa2ff;--blubg:rgba(122,162,255,.13);color-scheme:dark}
+html[data-tema="escuro"] aside{background:linear-gradient(180deg,#082e33,#051d21);border-right:1px solid var(--line)}
+html[data-tema="escuro"] .btn,html[data-tema="escuro"] .inp,html[data-tema="escuro"] .oc,html[data-tema="escuro"] .md,html[data-tema="escuro"] .authbox{background:var(--card)}
+html[data-tema="escuro"] .inp{background:#0d1f24}
+html[data-tema="escuro"] .btn:hover{border-color:#3a5a63}
+html[data-tema="escuro"] .btn.p{background:#0e5a63;border-color:#13707a}html[data-tema="escuro"] .btn.p:hover{background:#13707a}
+html[data-tema="escuro"] .btn.g{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#2b1d02}
+html[data-tema="escuro"] .btn.wa{background:#1fae5b}
+html[data-tema="escuro"] .tabs,html[data-tema="escuro"] .meter{background:#0d1f24}
+html[data-tema="escuro"] .tabs button.on{background:#1a343b;color:var(--ink)}
+html[data-tema="escuro"] .pill.gry{background:#1a343b}
+html[data-tema="escuro"] .note{color:#f3d49a}html[data-tema="escuro"] .note.blue{color:#c4d5ff}
+html[data-tema="escuro"] .x{background:#1a343b}
+html[data-tema="escuro"] .toast{background:#e6eef0;color:#0f1f2a}
+html[data-tema="escuro"] .mt:hover,html[data-tema="escuro"] .tooth:hover{background:#1a343b}
+html[data-tema="escuro"] .mt.on{background:rgba(63,167,177,.15)}
+html[data-tema="escuro"] .mbody{color:#c9d8dc}
+html[data-tema="escuro"] .evo{background:#0d1f24}
+html[data-tema="escuro"] .arc .sep{border-color:#3a5a63}
+html[data-tema="escuro"] .md{box-shadow:0 20px 60px rgba(0,0,0,.6)}
+html[data-tema="escuro"] .ov{background:rgba(0,0,0,.6)}
 </style>
 </head>
 <body>
@@ -183,6 +215,7 @@ tr.alert td{background:var(--redbg)}
    <div><b>Gestor Dental</b><small>PRO</small></div>
   </div>
   <nav id="nav"></nav>
+  <button class="temabtn" id="temabtn" onclick="trocaTema()" title="Alternar modo claro / escuro"></button>
   <div class="sync" id="sync"><i></i><span>Conectando…</span></div>
  </aside>
  <div class="scrim" id="scrim"></div>
@@ -249,6 +282,9 @@ async function saveCfg(cfg){
   const {error}=await sb.rpc('salvar_config',{p_clinica:CLIN.id,p_config:clean(cfg)});if(error)erroSB(error);else{CLIN.config={...(CLIN.config||{}),...cfg};if(cfg.nome)CLIN.nome=cfg.nome;montarLateral()}}
  else lsSave();
 }
+function temaBtn(){const b=document.getElementById('temabtn');if(!b)return;const e=document.documentElement.dataset.tema==='escuro';b.innerHTML=`<span>${e?'🌙':'☀️'}</span><span class="tl">Modo escuro<small>${e?'Ativado':'Desativado'}</small></span><i class="sw"><b></b></i>`}
+function trocaTema(){const r=document.documentElement,e=r.dataset.tema!=='escuro';if(e)r.dataset.tema='escuro';else delete r.dataset.tema;try{localStorage.setItem('gd_tema',e?'escuro':'claro')}catch(_){}temaBtn()}
+document.addEventListener('DOMContentLoaded',temaBtn);
 function setSync(ok,txt){const el=$('#syncSt');if(el)el.innerHTML=`<i style="background:${ok?'#3ccf8e':'#e0a33a'}"></i>${esc(txt)}`}
 
 /* ===================== helpers de domínio ===================== */
@@ -1069,7 +1105,7 @@ const urlSair=()=>location.pathname;
 function botoesDemo(){return `<a class="btn s" href="${urlSair()}" data-sairdemo="1">⟵ Sair da demonstração</a>${temSessao()?'':`<a class="btn s g" href="${urlSair()}">Criar conta grátis</a>`}`}
 function montarLateral(){
  const el=$('#sync');if(!el)return;
- if(mode==='local'){el.innerHTML=`<div style="color:#e6c57a;font-weight:700;margin-bottom:4px">🎬 Modo demonstração</div>Dados fictícios, só neste navegador.<a class="btn s" style="margin-top:8px;width:100%;justify-content:center;background:#fff;color:var(--ink);font-weight:700" href="${urlSair()}">⟵ Sair da demonstração</a>${temSessao()?'':`<a class="btn g s" style="margin-top:6px;width:100%;justify-content:center" href="${urlSair()}">Criar conta grátis</a>`}`;return}
+ if(mode==='local'){el.innerHTML=`<div style="color:#e6c57a;font-weight:700;margin-bottom:4px">🎬 Modo demonstração</div>Dados fictícios, só neste navegador.<a class="btn s" style="margin-top:8px;width:100%;justify-content:center;background:#fff;color:#0f1f2a;font-weight:700" href="${urlSair()}">⟵ Sair da demonstração</a>${temSessao()?'':`<a class="btn g s" style="margin-top:6px;width:100%;justify-content:center" href="${urlSair()}">Criar conta grátis</a>`}`;return}
  const dl=CLIN?dias(hoje(),CLIN.vencimento):0;
  el.innerHTML=`${CLIN?`<div style="color:#fff;font-weight:700">${esc(CLIN.nome)}</div><div><span class="pill" style="background:rgba(199,154,59,.2);color:#e6c57a;margin:4px 0">${PAPEIS[PAPEL]||''}</span>${CLIN.status==='teste'?` <span class="pill" style="background:rgba(255,255,255,.1);color:#fff">Teste: ${dl>0?dl+' dia(s)':'último dia'}</span>`:''}</div>`:''}
   <div style="word-break:break-all">${esc(USER?USER.email:'')}</div><div id="syncSt" style="margin:4px 0"></div>
