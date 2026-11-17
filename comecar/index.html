@@ -185,16 +185,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <!-- 2 -->
       <div class="step" data-step="2">
         <h2>Como podemos <em>te chamar?</em></h2>
-        <p class="sub">Usamos o CRO apenas para confirmar que você é dentista.</p>
+        <p class="sub">Seu WhatsApp é usado apenas para este atendimento.</p>
         <div class="fields">
           <div><label for="nome">Seu nome</label><input id="nome" autocomplete="name" placeholder="Ex.: Dra. Ana Souza"></div>
+          <div><label for="tel">Seu WhatsApp</label><input id="tel" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="Ex.: 34-98858-6329" maxlength="13"></div>
           <div class="row">
-            <div><label for="cro">Número do CRO</label><input id="cro" inputmode="numeric" placeholder="Ex.: 12345"></div>
+            <div><label for="cidade">Cidade</label><input id="cidade" autocomplete="address-level2" placeholder="Ex.: Uberlândia"></div>
             <div><label for="uf">UF</label>
               <select id="uf"><option value="">—</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option></select>
             </div>
           </div>
-          <div><label for="cidade">Cidade</label><input id="cidade" autocomplete="address-level2" placeholder="Ex.: Uberlândia"></div>
         </div>
         <p class="err" id="err2"></p>
         <div class="nav"><button class="back" data-back>← Voltar</button><button class="btn btn-gold" id="next2">Continuar <svg aria-hidden="true"><use href="#arr"/></svg></button></div>
@@ -311,19 +311,25 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     });
   });
 
-  document.getElementById('cro').addEventListener('input', function(){ this.value = this.value.replace(/\D/g,'').slice(0,7); });
+  document.getElementById('tel').addEventListener('input', function(){
+    var d = this.value.replace(/\D/g,'').slice(0,11), o = d.slice(0,2);
+    if (d.length > 2) o += '-' + d.slice(2, d.length > 10 ? 7 : 6);
+    if (d.length > 6) o += '-' + d.slice(d.length > 10 ? 7 : 6);
+    this.value = o;
+  });
+  document.querySelectorAll('#nome,#tel,#cidade,#uf').forEach(function(el){ el.addEventListener('input', function(){ document.getElementById('err2').textContent=''; }); });
   document.getElementById('next2').addEventListener('click', function(){
     var nome = document.getElementById('nome').value.trim();
-    var cro = document.getElementById('cro').value.trim();
+    var tel = document.getElementById('tel').value.trim();
     var uf = document.getElementById('uf').value;
     var cidade = document.getElementById('cidade').value.trim();
     var err = document.getElementById('err2');
     if (nome.length < 3) return err.textContent = 'Digite seu nome.';
-    if (cro.length < 3) return err.textContent = 'Digite o número do seu CRO (só números).';
-    if (!uf) return err.textContent = 'Selecione a UF do seu CRO.';
+    if (tel.replace(/\D/g,'').length < 10) return err.textContent = 'Digite seu WhatsApp com DDD. Ex.: 34-98858-6329';
     if (cidade.length < 2) return err.textContent = 'Digite sua cidade.';
+    if (!uf) return err.textContent = 'Selecione a UF.';
     err.textContent = '';
-    A.nome = nome; A.cro = 'CRO-' + uf + ' ' + cro; A.cidade = cidade + '/' + uf;
+    A.nome = nome; A.tel = tel; A.cidade = cidade + '/' + uf;
     go(3);
   });
 
@@ -335,7 +341,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     var perfil = A.perfil==='dentista-socio' ? 'Dentista, sócio(a) de clínica' : 'Dentista, consultório próprio';
     var msg = 'Olá, Alisson! Fiz o diagnóstico do Gestor Dental PRO.\n\n' +
       '👤 ' + A.nome + '\n' +
-      '🦷 ' + A.cro + ' · ' + perfil + '\n' +
+      '📱 ' + A.tel + '\n' +
+      '🦷 ' + perfil + '\n' +
       '📍 ' + A.cidade + '\n' +
       '⚠️ Maior dificuldade: ' + A.dor + '\n' +
       '🏥 Estrutura: ' + A.estrutura + '\n' +
@@ -344,12 +351,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       'Quero entender como o sistema funciona no meu caso.';
     if (A.momento === 'pesquisando'){
       document.getElementById('mornoNome').textContent = first(A.nome);
-      document.getElementById('waBtn2').href = wa('Olá, Alisson! Sou ' + A.nome + ' (' + A.cro + '), de ' + A.cidade + '. Estou conhecendo o Gestor Dental PRO e tenho uma dúvida: ');
+      document.getElementById('waBtn2').href = wa('Olá, Alisson! Sou ' + A.nome + ' (dentista), de ' + A.cidade + '. Estou conhecendo o Gestor Dental PRO e tenho uma dúvida: ');
       go('morno');
     } else {
       document.getElementById('okNome').textContent = first(A.nome);
       document.getElementById('sum').innerHTML =
-        '<div>Dentista: <b>'+esc(A.nome)+'</b> · '+esc(A.cro)+'</div>'+
+        '<div>Dentista: <b>'+esc(A.nome)+'</b> · '+esc(A.tel)+'</div>'+
         '<div>Maior dificuldade: <b>'+esc(A.dor)+'</b></div>'+
         '<div>Estrutura: <b>'+esc(A.estrutura)+'</b> · Prazo: <b>'+MOM[A.momento]+'</b></div>';
       document.getElementById('waBtn').href = wa(msg);
