@@ -242,7 +242,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <div class="step" data-step="ok">
         <div class="res-ico"><svg style="color:#25d366" aria-hidden="true"><use href="#wa"/></svg></div>
         <h2><span id="okNome">Tudo pronto</span>, você tem o perfil <em>ideal.</em></h2>
-        <p class="sub">Toque no botão abaixo. Sua mensagem já vai pronta, com o resumo das suas respostas, e você fala direto com o Alisson.</p>
+        <p class="sub">Toque no botão abaixo. Sua mensagem já vai pronta, com o resumo das suas respostas, e você fala direto com um especialista.</p>
         <div class="summary" id="sum"></div>
         <div class="stack">
           <a class="btn btn-wa" id="waBtn" href="#" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#wa"/></svg>Falar agora no WhatsApp</a>
@@ -339,19 +339,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
   function finish(){
     var perfil = A.perfil==='dentista-socio' ? 'Dentista, sócio(a) de clínica' : 'Dentista, consultório próprio';
-    var msg = 'Olá, Alisson! Fiz o diagnóstico do Gestor Dental PRO.\n\n' +
-      '👤 ' + A.nome + '\n' +
-      '📱 ' + A.tel + '\n' +
-      '🦷 ' + perfil + '\n' +
-      '📍 ' + A.cidade + '\n' +
-      '⚠️ Maior dificuldade: ' + A.dor + '\n' +
-      '🏥 Estrutura: ' + A.estrutura + '\n' +
-      '⏱️ Prazo: ' + MOM[A.momento] + '\n' +
-      '📲 Vim pelo: ' + origem + '\n\n' +
+    var msg = 'Olá! Fiz o diagnóstico do Gestor Dental PRO.\n\n' +
+      '*Nome:* ' + A.nome + '\n' +
+      '*WhatsApp:* ' + A.tel + '\n' +
+      '*Perfil:* ' + perfil + '\n' +
+      '*Cidade:* ' + A.cidade + '\n' +
+      '*Maior dificuldade:* ' + A.dor + '\n' +
+      '*Estrutura:* ' + A.estrutura + '\n' +
+      '*Prazo:* ' + MOM[A.momento] + '\n' +
+      '*Vim pelo:* ' + origem + '\n\n' +
       'Quero entender como o sistema funciona no meu caso.';
     if (A.momento === 'pesquisando'){
       document.getElementById('mornoNome').textContent = first(A.nome);
-      document.getElementById('waBtn2').href = wa('Olá, Alisson! Sou ' + A.nome + ' (dentista), de ' + A.cidade + '. Estou conhecendo o Gestor Dental PRO e tenho uma dúvida: ');
+      document.getElementById('waBtn2').href = wa('Olá! Sou ' + A.nome + ' (dentista), de ' + A.cidade + '. Estou conhecendo o Gestor Dental PRO e tenho uma dúvida: ');
       go('morno');
     } else {
       document.getElementById('okNome').textContent = first(A.nome);
