@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gestor Dental PRO — Diagnóstico do seu consultório em 1 minuto</title>
+<meta name="description" content="Exclusivo para cirurgiões-dentistas: responda 5 perguntas rápidas e receba um atendimento personalizado do Gestor Dental PRO.">
+<meta property="og:title" content="Gestor Dental PRO — Diagnóstico em 1 minuto">
+<meta property="og:description" content="Exclusivo para dentistas. 5 perguntas rápidas e você fala direto com um especialista.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://dental.aastecnologiaeditorial.com.br/midia/05-anuncio-feed.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#072a30">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+/* ============ CONFIGURAÇÃO ============ */
+var CFG = {
+  WHATS: '5519989522187',      // WhatsApp de atendimento (55 + DDD + número)
+  VENDAS: '../vendas/',        // página de vendas
+  TESTE: '../'                 // sistema (teste grátis de 7 dias)
+};
+</script>
+<style>
+:root{
+  --deep:#061f24;--deep2:#0a2f35;--panel:#0d3940cc;--line:#ffffff1c;
+  --pri:#0e5a63;--gold:#c79a3b;--gold2:#e6c57a;--cream:#f4efe4;--muted:#a9bcbf;--wa:#25d366;
+  --serif:'Fraunces',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--sans);color:var(--cream);background:var(--deep);-webkit-font-smoothing:antialiased;line-height:1.6;min-height:100svh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-1;
+  background:
+   radial-gradient(900px 520px at 85% -10%,#0e5a6399,transparent 60%),
+   radial-gradient(700px 500px at -10% 110%,#c79a3b26,transparent 60%),
+   linear-gradient(180deg,var(--deep),#04171b)}
+body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;mask-image:radial-gradient(circle at 50% 30%,#000 0,transparent 70%);-webkit-mask-image:radial-gradient(circle at 50% 30%,#000 0,transparent 70%)}
+a{color:inherit}
+.wrap{width:min(1120px,90%);margin:0 auto}
+
+/* header */
+header{position:sticky;top:0;z-index:20;padding:18px 0;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:#061f24b3;border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;letter-spacing:-.01em;font-size:17px}
+.brand i{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#2b1d02;font-style:normal;font-size:15px;box-shadow:0 8px 24px #c79a3b40}
+.brand small{display:block;font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold2)}
+.excl{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:8px 14px;border-radius:99px;white-space:nowrap}
+
+/* layout */
+main{padding:56px 0 90px}
+.grid{display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:start}
+.grid>*{min-width:0}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:11px;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--gold2)}
+.eyebrow:before{content:"";width:28px;height:1px;background:var(--gold)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,4.6vw,4.1rem);line-height:1.05;letter-spacing:-.02em;margin:18px 0 22px}
+h1 em{color:var(--gold2);font-style:italic}
+.intro p{font-size:17.5px;color:var(--muted);max-width:520px;margin:0 0 28px}
+.intro p b{color:var(--cream)}
+.points{list-style:none;padding:0;margin:0 0 30px;display:grid;gap:14px}
+.points li{display:flex;gap:14px;align-items:flex-start;font-size:15.5px}
+.points svg{flex:none;width:24px;height:24px;margin-top:1px}
+.trust{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--wa);box-shadow:0 0 0 0 #25d36680;animation:blink 2s infinite}
+@keyframes blink{0%{box-shadow:0 0 0 0 #25d36699}70%{box-shadow:0 0 0 10px #25d36600}100%{box-shadow:0 0 0 0 #25d36600}}
+
+/* card */
+.card{scroll-margin-top:84px;position:relative;background:linear-gradient(180deg,#0f3d44e6,#0a2c32f2);border:1px solid var(--line);border-radius:26px;padding:34px;box-shadow:0 40px 100px #000a,inset 0 1px 0 #ffffff14;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.card:before,.card:after{content:"";position:absolute;width:26px;height:26px;border:1px solid var(--gold);opacity:.7}
+.card:before{top:-8px;left:-8px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.card:after{bottom:-8px;right:-8px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+.progress{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.bar{flex:1;height:4px;background:#ffffff14;border-radius:9px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:9px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.count{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--muted);white-space:nowrap}
+.step{display:none}
+.step.on{display:block;animation:in .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.step h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.55rem,2.4vw,2rem);line-height:1.15;letter-spacing:-.015em;margin:0 0 8px}
+.step h2 em{color:var(--gold2);font-style:italic}
+.step .sub{color:var(--muted);font-size:14.5px;margin:0 0 22px}
+.opts{display:grid;gap:12px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;font-size:15.5px;font-weight:600;color:var(--cream);background:#ffffff08;border:1px solid var(--line);border-radius:16px;padding:17px 18px;cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
+.opt:hover{border-color:#c79a3b99;background:#c79a3b14;transform:translateY(-2px)}
+.opt:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible,.back:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+.opt.sel{border-color:var(--gold);background:#c79a3b1f}
+.opt .k{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:12px;font-weight:800;color:var(--gold2);border:1px solid #c79a3b66}
+.opt.sel .k{background:var(--gold);color:#2b1d02;border-color:var(--gold)}
+.opt small{display:block;font-weight:500;color:var(--muted);font-size:13px;margin-top:2px}
+.fields{display:grid;gap:14px}
+.row{display:grid;grid-template-columns:1fr 110px;gap:12px}
+.row>*{min-width:0}
+label{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+input,select{width:100%;font:inherit;font-size:16px;color:var(--cream);background:#ffffff0a;border:1px solid var(--line);border-radius:14px;padding:15px 16px;transition:border-color .2s}
+select option{color:#0f1f2a}
+input::placeholder{color:#a9bcbf88}
+input:focus,select:focus{border-color:var(--gold)}
+.err{color:#ff9b8f;font-size:13.5px;min-height:20px;margin:10px 0 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px}
+.back{background:none;border:0;color:var(--muted);font:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:8px 2px}
+.back:hover{color:var(--cream)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:14px;padding:18px 26px;font:inherit;font-weight:700;font-size:15.5px;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-3px)}
+.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#2b1d02;box-shadow:0 14px 34px #c79a3b47}
+.btn-wa{background:var(--wa);color:#062b16;box-shadow:0 14px 34px #25d36640}
+.btn-ghost{background:transparent;color:var(--cream);border:1px solid #ffffff38}
+.btn svg{width:20px;height:20px}
+.res-ico{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:#25d3661f;border:1px solid #25d36655;margin-bottom:20px}
+.res-ico.gold{background:#c79a3b1f;border-color:#c79a3b66}
+.res-ico svg{width:30px;height:30px}
+.summary{background:#0000002e;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:18px 0 22px;font-size:14px;color:var(--muted)}
+.summary b{color:var(--cream);font-weight:600}
+.summary div+div{margin-top:6px}
+.stack{display:grid;gap:12px}
+.stack .btn{width:100%}
+.note{font-size:12.5px;color:var(--muted);text-align:center;margin:14px 0 0}
+footer{border-top:1px solid var(--line);padding:26px 0;font-size:12.5px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media(max-width:980px){
+  .grid{grid-template-columns:1fr;gap:34px}
+  main{padding:34px 0 70px}
+  .intro .points,.intro .trust{display:none}
+  .intro p{margin-bottom:0}
+}
+@media(max-width:620px){
+  .wrap{width:92%}
+  .excl{display:none}
+  h1{font-size:2.15rem;margin:14px 0 14px}
+  .intro p{font-size:16px}
+  .card{padding:24px 18px;border-radius:22px}
+  .row{grid-template-columns:1fr 92px}
+  .nav .btn{flex:1}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="chk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="#c79a3b" stroke-opacity=".55"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#e6c57a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 001.8-1.3 2.2 2.2 0 00.2-1.3c-.1-.1-.3-.2-.5-.3z"/></symbol>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tooth" viewBox="0 0 24 24"><path d="M7.5 3C5 3 3.5 5 3.5 7.5c0 3 1.5 4.2 2 7 .4 2.6.9 6.5 2.6 6.5 1.6 0 1.6-4.5 3.9-4.5s2.3 4.5 3.9 4.5c1.7 0 2.2-3.9 2.6-6.5.5-2.8 2-4 2-7C20.5 5 19 3 16.5 3c-1.9 0-2.8 1-4.5 1S9.4 3 7.5 3z" fill="none" stroke="#e6c57a" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="../vendas/"><i>GD</i><span>Gestor Dental PRO<small>AAS Tecnologia Editorial</small></span></a>
+    <span class="excl">Exclusivo para dentistas</span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap grid">
+    <section class="intro">
+      <span class="eyebrow">Diagnóstico em 1 minuto</span>
+      <h1>Descubra onde o seu consultório está <em>perdendo dinheiro.</em></h1>
+      <p>Responda <b>5 perguntas rápidas</b> e fale direto com um especialista que vai te mostrar, no seu caso, como o <b>Gestor Dental PRO</b> organiza agenda, orçamentos e financeiro.</p>
+      <ul class="points">
+        <li><svg aria-hidden="true"><use href="#chk"/></svg><span>Atendimento individual, sem robô e sem enrolação</span></li>
+        <li><svg aria-hidden="true"><use href="#chk"/></svg><span>Teste grátis por 7 dias, sem cartão de crédito</span></li>
+        <li><svg aria-hidden="true"><use href="#chk"/></svg><span>Feito exclusivamente para a rotina do cirurgião-dentista</span></li>
+      </ul>
+      <div class="trust"><span class="dot"></span>Respondemos em minutos, em horário comercial</div>
+    </section>
+
+    <section class="card" aria-live="polite">
+      <div class="progress" id="prog"><div class="bar"><span id="barfill"></span></div><span class="count" id="count">1 / 5</span></div>
+
+      <!-- 1 -->
+      <div class="step on" data-step="1">
+        <h2>Você é <em>cirurgião-dentista?</em></h2>
+        <p class="sub">O Gestor Dental PRO é exclusivo para profissionais da odontologia.</p>
+        <div class="opts" data-q="perfil">
+          <button class="opt" data-v="dentista"><span class="k">A</span><span>Sim, sou dentista e atendo em consultório próprio</span></button>
+          <button class="opt" data-v="dentista-socio"><span class="k">B</span><span>Sim, sou dentista e sócio(a) de uma clínica</span></button>
+          <button class="opt" data-v="nao"><span class="k">C</span><span>Não sou dentista</span></button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="step" data-step="2">
+        <h2>Como podemos <em>te chamar?</em></h2>
+        <p class="sub">Usamos o CRO apenas para confirmar que você é dentista.</p>
+        <div class="fields">
+          <div><label for="nome">Seu nome</label><input id="nome" autocomplete="name" placeholder="Ex.: Dra. Ana Souza"></div>
+          <div class="row">
+            <div><label for="cro">Número do CRO</label><input id="cro" inputmode="numeric" placeholder="Ex.: 12345"></div>
+            <div><label for="uf">UF</label>
+              <select id="uf"><option value="">—</option><option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option></select>
+            </div>
+          </div>
+          <div><label for="cidade">Cidade</label><input id="cidade" autocomplete="address-level2" placeholder="Ex.: Uberlândia"></div>
+        </div>
+        <p class="err" id="err2"></p>
+        <div class="nav"><button class="back" data-back>← Voltar</button><button class="btn btn-gold" id="next2">Continuar <svg aria-hidden="true"><use href="#arr"/></svg></button></div>
+      </div>
+
+      <!-- 3 -->
+      <div class="step" data-step="3">
+        <h2>Hoje, o que mais <em>pesa</em> no seu consultório?</h2>
+        <p class="sub">Escolha a opção que mais te incomoda.</p>
+        <div class="opts" data-q="dor">
+          <button class="opt" data-v="Faltas e desmarcações de pacientes"><span class="k">A</span><span>Faltas e desmarcações de pacientes</span></button>
+          <button class="opt" data-v="Orçamentos que não viram tratamento"><span class="k">B</span><span>Orçamentos que não viram tratamento</span></button>
+          <button class="opt" data-v="Pacientes inadimplentes"><span class="k">C</span><span>Pacientes inadimplentes</span></button>
+          <button class="opt" data-v="Não sei quanto realmente lucro"><span class="k">D</span><span>Não sei quanto realmente lucro no mês</span></button>
+        </div>
+        <div class="nav"><button class="back" data-back>← Voltar</button><span></span></div>
+      </div>
+
+      <!-- 4 -->
+      <div class="step" data-step="4">
+        <h2>Qual é o <em>tamanho</em> da sua estrutura?</h2>
+        <p class="sub">Assim indicamos a configuração certa para você.</p>
+        <div class="opts" data-q="estrutura">
+          <button class="opt" data-v="Atendo sozinho(a)"><span class="k">A</span><span>Atendo sozinho(a)</span></button>
+          <button class="opt" data-v="Eu + secretária/ASB"><span class="k">B</span><span>Eu e uma secretária ou ASB</span></button>
+          <button class="opt" data-v="Clínica com 2 a 4 dentistas"><span class="k">C</span><span>Clínica com 2 a 4 dentistas</span></button>
+          <button class="opt" data-v="Clínica com 5 ou mais dentistas"><span class="k">D</span><span>Clínica com 5 ou mais dentistas</span></button>
+        </div>
+        <div class="nav"><button class="back" data-back>← Voltar</button><span></span></div>
+      </div>
+
+      <!-- 5 -->
+      <div class="step" data-step="5">
+        <h2>Quando você quer <em>resolver</em> isso?</h2>
+        <p class="sub">Seja sincero(a): isso nos ajuda a te atender melhor.</p>
+        <div class="opts" data-q="momento">
+          <button class="opt" data-v="agora"><span class="k">A</span><span>Agora mesmo<small>Quero começar ainda esta semana</small></span></button>
+          <button class="opt" data-v="30dias"><span class="k">B</span><span>Nos próximos 30 dias<small>Estou decidindo qual sistema usar</small></span></button>
+          <button class="opt" data-v="pesquisando"><span class="k">C</span><span>Só estou pesquisando<small>Quero conhecer antes de decidir</small></span></button>
+        </div>
+        <div class="nav"><button class="back" data-back>← Voltar</button><span></span></div>
+      </div>
+
+      <!-- resultado: qualificado -->
+      <div class="step" data-step="ok">
+        <div class="res-ico"><svg style="color:#25d366" aria-hidden="true"><use href="#wa"/></svg></div>
+        <h2><span id="okNome">Tudo pronto</span>, você tem o perfil <em>ideal.</em></h2>
+        <p class="sub">Toque no botão abaixo. Sua mensagem já vai pronta, com o resumo das suas respostas, e você fala direto com o Alisson.</p>
+        <div class="summary" id="sum"></div>
+        <div class="stack">
+          <a class="btn btn-wa" id="waBtn" href="#" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#wa"/></svg>Falar agora no WhatsApp</a>
+          <a class="btn btn-ghost" href="../vendas/">Ver a apresentação completa</a>
+        </div>
+        <p class="note">Atendimento individual em horário comercial.</p>
+      </div>
+
+      <!-- resultado: pesquisando -->
+      <div class="step" data-step="morno">
+        <div class="res-ico gold"><svg aria-hidden="true"><use href="#tooth"/></svg></div>
+        <h2>Ótimo, <span id="mornoNome">doutor(a)</span>! Comece <em>no seu ritmo.</em></h2>
+        <p class="sub">Veja a apresentação completa ou teste o sistema por 7 dias, de graça e sem cartão. Quando quiser conversar, é só chamar.</p>
+        <div class="stack">
+          <a class="btn btn-gold" href="../vendas/">Ver a apresentação completa <svg aria-hidden="true"><use href="#arr"/></svg></a>
+          <a class="btn btn-ghost" id="waBtn2" href="#" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#wa"/></svg>Tirar uma dúvida no WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- resultado: não dentista -->
+      <div class="step" data-step="fora">
+        <div class="res-ico gold"><svg aria-hidden="true"><use href="#tooth"/></svg></div>
+        <h2>Obrigado pelo <em>interesse!</em></h2>
+        <p class="sub">O Gestor Dental PRO é exclusivo para cirurgiões-dentistas. Se você conhece um dentista que sofre com faltas, orçamentos parados ou inadimplência, compartilhe esta página com ele.</p>
+        <div class="stack">
+          <button class="btn btn-ghost" id="share">Compartilhar com um dentista</button>
+          <button class="back" data-reset style="justify-self:center">← Recomeçar</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>© <span id="ano"></span> Gestor Dental PRO · AAS Tecnologia Editorial</span><span>Seus dados são usados apenas para este atendimento.</span></div></footer>
+
+<script>
+(function(){
+  var A = {}, hist = [], TOTAL = 5;
+  var qs = new URLSearchParams(location.search);
+  var origem = qs.get('origem') || qs.get('utm_source') || 'Instagram';
+  document.getElementById('ano').textContent = new Date().getFullYear();
+
+  function show(id){
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.toggle('on', s.dataset.step == id); });
+    var n = parseInt(id,10), fim = isNaN(n);
+    document.getElementById('barfill').style.width = (fim ? 100 : (n-1)/TOTAL*100) + '%';
+    document.getElementById('count').textContent = fim ? 'Concluído' : n + ' / ' + TOTAL;
+    var first = document.querySelector('.step.on .opt, .step.on input');
+    if (first && window.innerWidth > 980) first.focus({preventScroll:true});
+    if (window.innerWidth <= 980) document.querySelector('.card').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function go(id){ hist.push(document.querySelector('.step.on').dataset.step); show(id); }
+
+  document.querySelectorAll('.opts').forEach(function(box){
+    box.addEventListener('click', function(e){
+      var b = e.target.closest('.opt'); if(!b) return;
+      box.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); });
+      b.classList.add('sel');
+      var q = box.dataset.q; A[q] = b.dataset.v;
+      setTimeout(function(){
+        if (q==='perfil') go(A.perfil==='nao' ? 'fora' : 2);
+        else if (q==='dor') go(4);
+        else if (q==='estrutura') go(5);
+        else if (q==='momento') finish();
+      }, 260);
+    });
+  });
+
+  document.getElementById('cro').addEventListener('input', function(){ this.value = this.value.replace(/\D/g,'').slice(0,7); });
+  document.getElementById('next2').addEventListener('click', function(){
+    var nome = document.getElementById('nome').value.trim();
+    var cro = document.getElementById('cro').value.trim();
+    var uf = document.getElementById('uf').value;
+    var cidade = document.getElementById('cidade').value.trim();
+    var err = document.getElementById('err2');
+    if (nome.length < 3) return err.textContent = 'Digite seu nome.';
+    if (cro.length < 3) return err.textContent = 'Digite o número do seu CRO (só números).';
+    if (!uf) return err.textContent = 'Selecione a UF do seu CRO.';
+    if (cidade.length < 2) return err.textContent = 'Digite sua cidade.';
+    err.textContent = '';
+    A.nome = nome; A.cro = 'CRO-' + uf + ' ' + cro; A.cidade = cidade + '/' + uf;
+    go(3);
+  });
+
+  function first(n){ return n.split(' ').filter(function(p){ return !/^(dr|dra)\.?$/i.test(p); })[0] || n; }
+  function wa(msg){ return 'https://wa.me/' + CFG.WHATS + '?text=' + encodeURIComponent(msg); }
+  var MOM = {agora:'Quero começar ainda esta semana', '30dias':'Nos próximos 30 dias', pesquisando:'Só pesquisando'};
+
+  function finish(){
+    var perfil = A.perfil==='dentista-socio' ? 'Dentista, sócio(a) de clínica' : 'Dentista, consultório próprio';
+    var msg = 'Olá, Alisson! Fiz o diagnóstico do Gestor Dental PRO.\n\n' +
+      '👤 ' + A.nome + '\n' +
+      '🦷 ' + A.cro + ' · ' + perfil + '\n' +
+      '📍 ' + A.cidade + '\n' +
+      '⚠️ Maior dificuldade: ' + A.dor + '\n' +
+      '🏥 Estrutura: ' + A.estrutura + '\n' +
+      '⏱️ Prazo: ' + MOM[A.momento] + '\n' +
+      '📲 Vim pelo: ' + origem + '\n\n' +
+      'Quero entender como o sistema funciona no meu caso.';
+    if (A.momento === 'pesquisando'){
+      document.getElementById('mornoNome').textContent = first(A.nome);
+      document.getElementById('waBtn2').href = wa('Olá, Alisson! Sou ' + A.nome + ' (' + A.cro + '), de ' + A.cidade + '. Estou conhecendo o Gestor Dental PRO e tenho uma dúvida: ');
+      go('morno');
+    } else {
+      document.getElementById('okNome').textContent = first(A.nome);
+      document.getElementById('sum').innerHTML =
+        '<div>Dentista: <b>'+esc(A.nome)+'</b> · '+esc(A.cro)+'</div>'+
+        '<div>Maior dificuldade: <b>'+esc(A.dor)+'</b></div>'+
+        '<div>Estrutura: <b>'+esc(A.estrutura)+'</b> · Prazo: <b>'+MOM[A.momento]+'</b></div>';
+      document.getElementById('waBtn').href = wa(msg);
+      go('ok');
+    }
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  document.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click', function(){ if(hist.length) show(hist.pop()); }); });
+  document.querySelector('[data-reset]').addEventListener('click', function(){ A={}; hist=[]; document.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');}); show(1); });
+  document.getElementById('share').addEventListener('click', function(){
+    var url = location.origin + location.pathname, t = 'Conhece o Gestor Dental PRO? Sistema feito para dentistas: ';
+    if (navigator.share) navigator.share({title:'Gestor Dental PRO', text:t, url:url}).catch(function(){});
+    else window.open(wa(t + url), '_blank', 'noopener');
+  });
+})();
+</script>
+</body>
+</html>
