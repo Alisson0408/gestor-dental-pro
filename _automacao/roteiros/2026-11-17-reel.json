@@ -1,0 +1,7 @@
+{"seed": 53, "cenas": [
+ {"tipo": "hook", "tag": "🦷 Para dentistas", "texto": "Quanto custa 1\u00a0hora da sua cadeira?", "destaque": "1\u00a0hora", "sub": "Sem esse número, você pode estar pagando para atender.", "dur": 3.6},
+ {"tipo": "lista", "tag": "A conta que ninguém faz", "titulo": "Não é só o material.", "destaque": "só o material", "itens": ["Aluguel, luz e água", "Equipe e encargos", "Laboratório", "Horas paradas na agenda"], "cor": "red", "dur": 4.0},
+ {"tipo": "hook", "tag": "O risco", "texto": "Preço de tabela não paga suas contas.", "destaque": "não paga", "sub": "Tem procedimento que dá prejuízo — e você nem percebe.", "dur": 3.6},
+ {"tipo": "checks", "tag": "Gestor Dental PRO", "titulo": "A conta pronta, sem planilha.", "destaque": "sem planilha", "itens": ["Custo da sua hora clínica", "Lucro por procedimento", "Preço mínimo de cada um", "Feito só para dentistas"], "dur": 4.4},
+ {"tipo": "cta", "titulo": "Saiba quanto lucra de verdade.", "sub": "Teste grátis por 7 dias, sem cartão", "botao": "Link na bio", "dur": 3.6}
+]}
