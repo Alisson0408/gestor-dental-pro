@@ -17,7 +17,7 @@ Horário do carrossel: leia `horario_carrossel.txt`.
 ## Fatos permitidos (use só estes; nunca invente)
 - Gestor Dental PRO: sistema online de gestão exclusivo para dentistas e clínicas odontológicas.
 - Teste grátis por 7 dias, sem cartão de crédito. Assinatura a partir de R$ 129/mês, paga por Pix, sem fidelidade.
-- Link: https://dental.aastecnologiaeditorial.com.br/vendas/ (na bio). Demonstração sem cadastro no próprio site.
+- Link da bio: https://dental.aastecnologiaeditorial.com.br/comecar/?origem=Instagram%20Bio (diagnóstico de 1 minuto que filtra dentistas e leva ao WhatsApp). Página de vendas: https://dental.aastecnologiaeditorial.com.br/vendas/. Demonstração sem cadastro no próprio site.
 - Recursos: painel "dinheiro escapando" (faltas, orçamentos parados +7 dias, parcelas vencidas, glosas); lista de ações do dia; agenda com confirmação por WhatsApp (mensagem pronta, a pessoa clica em enviar — o sistema não envia sozinho); lista de espera e encaixe; funil de orçamentos com follow-up em 3, 7, 15 e 30 dias; orçamento aprovado gera parcelas sozinho; contas a receber, cobrança educada pelo WhatsApp e caixa diário; convênios e glosas por operadora, guias paradas +30 dias; prontuário com odontograma, anamnese com alertas de alergia, evolução clínica que não pode ser apagada (só retificada), termos e documentos em PDF para assinar; custos e preços (custo da hora clínica, lucro por procedimento, preço mínimo); retorno de pacientes inativos; estoque com alerta de mínimo; equipe com perfis (dono, dentista, recepção — recepção não vê dados de saúde); backup com um clique; manual completo dentro do sistema; funciona no celular; dados em servidores no Brasil.
 - Não emite nota fiscal (a parte fiscal continua com o contador).
 - Estatísticas permitidas (sempre como estão):
@@ -43,7 +43,10 @@ Horário do carrossel: leia `horario_carrossel.txt`.
 ## Estratégia de conversão
 - Gancho nos 2 primeiros segundos/1º slide: dor real, pergunta direta ou número permitido. Nunca abrir com o logo.
 - Uma ideia por post. No carrossel, cada slide pede o próximo; penúltimo slide = como o sistema resolve; último = CTA.
-- Um único chamado no final, variando: "Teste grátis por 7 dias — link na bio", "Comenta QUERO", "Salva para mostrar para sua recepção".
+- CTA PADRÃO (funil de prospecção, desde 17/11/2026): todo post termina com **"Manda SISTEMA no Direct"**. O ManyChat responde sozinho qualquer DM com SISTEMA/QUERO/PREÇO/VALOR/TESTE/INFO/DIAGNÓSTICO e envia o link do diagnóstico (/comecar/), que filtra dentistas e leva ao WhatsApp 019.
+  - Na última cena do Reel / último slide do carrossel: `"botao": "Manda SISTEMA no Direct"` e sub "Diagnóstico grátis do seu consultório em 1 minuto" (ou "Teste grátis por 7 dias, sem cartão").
+  - Na legenda, linha do CTA: "👉 Manda SISTEMA no Direct que eu te envio o diagnóstico gratuito do seu consultório (1 minuto)." Pode acrescentar "Ou faça agora pelo link da bio."
+  - NÃO use "Comenta QUERO/SISTEMA" como CTA: no plano grátis do ManyChat a automação de comentários vale só para um post fixo, então comentários nos posts novos ficariam sem resposta.
 - Legenda: 1ª linha é o gancho; 3 a 8 linhas curtas; CTA; 5 a 7 hashtags (#dentista #odontologia #gestaoodontologica #consultorioodontologico #cirurgiaodentista + 1–2 do tema).
 
 ## Padrão de excelência (pedido do dono: cada post melhor que o anterior)
