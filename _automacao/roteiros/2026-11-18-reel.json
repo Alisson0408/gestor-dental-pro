@@ -1,0 +1,7 @@
+{"seed": 71, "cenas": [
+ {"tipo": "hook", "tag": "🦷 Para dentistas", "texto": "Seu paciente não faltou por descaso. Ele esqueceu.", "destaque": "Ele esqueceu.", "sub": "Esquecimento é o principal motivo de falta.", "dur": 3.6},
+ {"tipo": "numero", "tag": "Não é só com você", "numero": "42,2%", "texto": "das clínicas privadas têm dificuldade para confirmar consultas.", "nota": "Pesquisa Conclínica", "dur": 3.8},
+ {"tipo": "lista", "tag": "Onde a confirmação trava", "titulo": "Confirmar dá trabalho.", "destaque": "dá trabalho", "itens": ["Ligação que ninguém atende", "Mensagem digitada uma a uma", "Recepção sem tempo", "Horário vago visto tarde"], "cor": "red", "dur": 4.0},
+ {"tipo": "checks", "tag": "Gestor Dental PRO", "titulo": "Confirmar vira um clique.", "destaque": "um clique", "itens": ["Mensagem pronta no WhatsApp", "Você só clica em enviar", "Lista de espera para encaixe", "Faltas no painel da manhã"], "dur": 4.4},
+ {"tipo": "cta", "titulo": "Lembre o paciente antes que ele esqueça.", "sub": "Diagnóstico grátis do seu consultório em 1 minuto", "botao": "Manda SISTEMA no Direct", "dur": 3.8}
+]}
