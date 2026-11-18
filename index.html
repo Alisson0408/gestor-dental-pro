@@ -1,9 +1,19 @@
 <!DOCTYPE html>
+<!--
+  Gestor Dental PRO — © 2026 Alisson · AAS Tecnologia Editorial. Todos os direitos reservados.
+  Software proprietário, protegido pela Lei 9.609/1998 (Lei do Software) e pela Lei 9.610/1998 (Direitos Autorais).
+  É proibido copiar, modificar, redistribuir, revender, sublicenciar ou criar sistemas derivados deste código,
+  no todo ou em parte, sem autorização por escrito do autor. Uso permitido somente a clientes licenciados.
+  Autoria registrada no histórico de versões de github.com/Alisson0408/gestor-dental-pro (desde 14/11/2026).
+  ID de autoria: AAS-GDP-2026-88375282
+-->
 <html lang="pt-BR">
 <head>
 <script>try{if(localStorage.getItem('gd_tema')==='escuro')document.documentElement.dataset.tema='escuro'}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Alisson · AAS Tecnologia Editorial">
+<meta name="copyright" content="© 2026 AAS Tecnologia Editorial. Todos os direitos reservados. Gestor Dental PRO é software proprietário.">
 <title>Gestor Dental PRO — gestão para consultórios odontológicos</title>
 <meta name="description" content="Agenda, faltas, orçamentos, financeiro, convênios e prontuário com odontograma. Descubra quanto dinheiro está escapando do seu consultório.">
 <meta property="og:title" content="Gestor Dental PRO"><meta property="og:description" content="Gestão que recupera a receita do consultório odontológico. Teste grátis.">
@@ -42,6 +52,7 @@ nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:1
 nav a:hover{background:rgba(255,255,255,.06);color:#fff}
 nav a.on{background:rgba(199,154,59,.16);color:#fff;box-shadow:inset 3px 0 0 var(--gold)}
 nav a .ct{margin-left:auto;background:var(--red);color:#fff;font-size:11px;border-radius:20px;padding:1px 7px}
+.aascopy{font-size:10.5px;line-height:1.5;color:#9fbcc0;padding:8px 8px 0;opacity:.85}.aascopy a{color:inherit;text-decoration:underline}
 .sync{margin-top:auto;font-size:11.5px;color:#9fbcc0;padding:10px 8px 0;border-top:1px solid rgba(255,255,255,.08)}
 .sync i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e0a33a;margin-right:6px}
 .sync.ok i{background:#3ccf8e}
@@ -218,6 +229,7 @@ html[data-tema="escuro"] .ov{background:rgba(0,0,0,.6)}
   <nav id="nav"></nav>
   <button class="temabtn" id="temabtn" onclick="trocaTema()" title="Alternar modo claro / escuro"></button>
   <div class="sync" id="sync"><i></i><span>Conectando…</span></div>
+  <div class="aascopy">© 2026 AAS Tecnologia Editorial<br><a href="termos.html" target="_blank" rel="noopener">Termos de uso</a></div>
  </aside>
  <div class="scrim" id="scrim"></div>
  <main id="main"></main>
@@ -1005,7 +1017,7 @@ function telaLogin(tab){
  ${tab!=='recuperar'?`<div class="f"><label>Senha</label><input class="inp" name="senha" type="password" required minlength="6" autocomplete="${tab==='criar'?'new-password':'current-password'}"></div>`:''}
  <button class="btn p" style="width:100%;justify-content:center;padding:11px" id="bAuth">${tab==='entrar'?'Entrar':tab==='criar'?`Começar ${CONFIG.DIAS_TESTE||7} dias grátis`:'Enviar link de recuperação'}</button></form>
  <p class="small" style="text-align:center;margin-top:14px">${tab==='entrar'?`<a href="#" data-auth="recuperar">Esqueci minha senha</a>`:tab==='criar'?'<span class="muted">Sem cartão de crédito. Ao criar a conta você concorda com o tratamento dos dados conforme a LGPD.</span>':`<a href="#" data-auth="entrar">Voltar</a>`}</p>
- <div class="ou"><span>ou</span></div><a class="btn" style="width:100%;justify-content:center" href="?demo">Ver demonstração sem cadastro</a>`);
+ <div class="ou"><span>ou</span></div><a class="btn" style="width:100%;justify-content:center" href="?demo">Ver demonstração sem cadastro</a><p class="small muted" style="text-align:center;margin-top:14px;font-size:11px">© 2026 AAS Tecnologia Editorial · Todos os direitos reservados · <a href="termos.html" target="_blank" rel="noopener">Termos de uso</a></p>`);
  $('#fAuth').onsubmit=e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));ocupado($('#bAuth'),async()=>{
   if(tab==='entrar'){const {error}=await sb.auth.signInWithPassword({email:f.email.trim(),password:f.senha});if(error)throw error;await carregarSessao()}
   else if(tab==='criar'){try{localStorage.setItem('gdp_pend',JSON.stringify({clinica:f.clinica,zap:f.zap,nome:f.nome}))}catch(_){}
@@ -1504,5 +1516,6 @@ function render(){
 }
 iniciar();
 </script>
+<script>window.__AAS_AUTORIA=Object.freeze({sistema:'Gestor Dental PRO',titular:'Alisson · AAS Tecnologia Editorial',id:'AAS-GDP-2026-88375282',ano:2026});try{console.log('%cGestor Dental PRO © 2026 AAS Tecnologia Editorial','font-weight:700;font-size:14px');console.log('Software proprietário (Lei 9.609/98). Cópia ou reprodução do código é proibida. ID: AAS-GDP-2026-88375282')}catch(e){}</script>
 </body>
 </html>
