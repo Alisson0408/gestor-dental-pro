@@ -1,0 +1,9 @@
+{"slides": [
+ {"tipo": "hook", "tag": "Convênios", "texto": "Você atendeu pelo convênio. Já conferiu se recebeu?", "destaque": "Já conferiu se recebeu?"},
+ {"tipo": "hook", "tag": "A real", "texto": "Atender é só metade. A outra metade é receber.", "destaque": "receber", "sub": "E é aí que o dinheiro some sem barulho."},
+ {"tipo": "lista", "tag": "Onde escapa", "titulo": "O dinheiro do convênio some em:", "itens": ["Glosa que ninguém contesta", "Guia parada há +30 dias", "Repasse sem conferência", "Operadora sem controle"], "cor": "red"},
+ {"tipo": "lista", "tag": "Rotina semanal", "titulo": "Uma vez por semana, confira:", "itens": ["Guias enviadas x pagas", "Glosas por operadora", "Guias paradas há +30 dias", "O que dá para recorrer"], "cor": "gold"},
+ {"tipo": "hook", "tag": "Atenção", "texto": "Glosa que ninguém confere vira prejuízo aceito.", "destaque": "prejuízo aceito"},
+ {"tipo": "checks", "tag": "No Gestor Dental PRO", "titulo": "O sistema organiza por você:", "itens": ["Convênios e glosas por operadora", "Alerta de guias paradas +30 dias", "Painel do dinheiro escapando", "Lista de ações do dia"]},
+ {"tipo": "cta", "titulo": "Convênio também é receita. Confira.", "destaque": "receita", "sub": "Diagnóstico grátis do seu consultório em 1 minuto", "botao": "Manda SISTEMA no Direct", "rodape": "Teste grátis por 7 dias, sem cartão"}
+]}
