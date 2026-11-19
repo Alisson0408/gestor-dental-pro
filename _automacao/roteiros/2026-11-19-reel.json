@@ -1,0 +1,7 @@
+{"seed": 89, "cenas": [
+ {"tipo": "hook", "tag": "🦷 Para dentistas", "texto": "Quantos orçamentos seus estão parados há mais de 7 dias?", "destaque": "parados", "sub": "Cada um é um tratamento esperando um telefonema.", "dur": 3.6},
+ {"tipo": "barras", "tag": "Chance de fechar", "titulo": "O relógio decide o “sim”.", "destaque": "o “sim”", "barras": [["Retomado em até 15 dias", "50% a 70%", 70, "green"], ["Depois de 30 dias", "menos de 10%", 9, "red"]], "dur": 4.2},
+ {"tipo": "lista", "tag": "Por que esfria", "titulo": "Ninguém liga de volta.", "destaque": "liga de volta", "itens": ["Orçamento na gaveta", "Ninguém sabe quem liga", "Sem data de retorno", "“Vou pensar” vira “não”"], "cor": "red", "dur": 4.0},
+ {"tipo": "checks", "tag": "Gestor Dental PRO", "titulo": "O sistema lembra por você.", "destaque": "lembra por você", "itens": ["Funil de orçamentos", "Follow-up em 3, 7, 15 e 30 dias", "Alerta: parado há +7 dias", "Aprovou? Parcelas sozinhas"], "dur": 4.4},
+ {"tipo": "cta", "titulo": "Retome o orçamento antes que ele esfrie.", "sub": "Diagnóstico grátis do seu consultório em 1 minuto", "botao": "Manda SISTEMA no Direct", "dur": 3.8}
+]}
