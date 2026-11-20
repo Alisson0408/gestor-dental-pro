@@ -1,0 +1,9 @@
+{"slides": [
+ {"tipo": "hook", "tag": "Pacientes inativos", "texto": "Quantos pacientes seus não aparecem há meses?", "destaque": "há meses?"},
+ {"tipo": "hook", "tag": "Pense nisso", "texto": "Eles não foram embora. Só ninguém chamou de volta.", "destaque": "chamou de volta", "sub": "Às vezes, só falta um lembrete."},
+ {"tipo": "lista", "tag": "Por que somem", "titulo": "O paciente some porque:", "itens": ["Terminou o tratamento", "Esqueceu da revisão", "A vida ficou corrida", "Ninguém fez contato"], "cor": "red"},
+ {"tipo": "hook", "tag": "A vantagem", "texto": "Paciente antigo já te conhece. Não começa do zero.", "destaque": "do zero", "sub": "Ele já sabe como você atende."},
+ {"tipo": "lista", "tag": "Rotina semanal", "titulo": "Uma vez por semana:", "itens": ["Veja quem não volta há meses", "Comece pelos mais antigos", "Mande uma mensagem gentil", "Ofereça um horário livre"], "cor": "gold"},
+ {"tipo": "checks", "tag": "No Gestor Dental PRO", "titulo": "O sistema organiza por você:", "itens": ["Retorno de pacientes inativos", "Lista de espera e encaixe", "Confirmação por WhatsApp", "Lista de ações do dia"]},
+ {"tipo": "cta", "titulo": "Paciente antigo também é agenda.", "destaque": "agenda", "sub": "Diagnóstico grátis do seu consultório em 1 minuto", "botao": "Manda SISTEMA no Direct", "rodape": "Teste grátis por 7 dias, sem cartão"}
+]}
