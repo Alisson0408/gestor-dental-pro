@@ -14,6 +14,8 @@ O roteiro é uma lista de cenas/slides. Tipos:
   checks   {"tag","titulo","itens":[..]}
   acoes    {"tag","titulo","itens":[[icone,texto,botao],..]}
   cta      {"titulo","sub"}
+CAPA (obrigatória no Reel): "capa": {"tag","texto","destaque","sub","selo"} no topo do roteiro.
+  Vira o 1º quadro do vídeo (miniatura no feed), já montada, sem tela escura. Sem "capa", usa a 1ª cena pronta.
 Cada cena de reel aceita "dur" (segundos, padrão 3.2).
 """
 import os, json, sys, subprocess, pathlib, math, wave, struct, random
@@ -56,6 +58,9 @@ em{font-style:normal;background:linear-gradient(135deg,#f6e1a6,#c79a3b);-webkit-
 .cta{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#f0d38c,#c79a3b);color:#2b1d02;font-weight:800;font-size:44px;padding:32px 52px;border-radius:26px;box-shadow:0 20px 60px rgba(199,154,59,.45)}
 .foot{display:flex;justify-content:space-between;font-size:26px;color:#a9cdd1;font-weight:600;border-top:1px solid rgba(255,255,255,.12);padding-top:28px}
 .a{opacity:0}
+.frame{position:absolute;inset:150px 46px 230px;border:2px solid rgba(230,197,122,.55);border-radius:40px;pointer-events:none}
+.selo{position:absolute;top:186px;right:86px;background:linear-gradient(135deg,#f0d38c,#c79a3b);color:#2b1d02;font-weight:800;font-size:26px;letter-spacing:1px;padding:14px 24px;border-radius:40px}
+.toque{text-align:center;font-size:30px;font-weight:700;color:#e6c57a;letter-spacing:.5px}
 .prog{position:absolute;left:80px;right:80px;bottom:70px;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}.prog i{display:block;height:100%;background:#e6c57a;border-radius:3px}
 """
 
@@ -77,6 +82,11 @@ def scene_html(s, reel):
     k = s['tipo']; o = top() + '<div class="sp"></div>'
     big = 1.0 if reel else 0.86
     if s.get('tag'): o += f'<div class="tag a" data-in=".1" style="margin-top:0">{esc(s["tag"])}</div>'
+    if k == 'capa':
+        o += h1(s['texto'], s.get('destaque'), int(s.get('size', 124)))
+        if s.get('sub'): o += f'<p class="sub a" data-in="0" style="margin-top:40px;font-size:40px">{esc(s["sub"])}</p>'
+        o += '<div class="sp"></div><p class="toque a" data-in="0">toque para assistir ▶</p>'
+        return o + f'<div class="frame"></div><div class="selo">{esc(s.get("selo","PARA DENTISTAS"))}</div>'
     if k == 'hook':
         o += h1(s['texto'], s.get('destaque'), int(118*big))
         if s.get('sub'): o += f'<p class="sub a" data-in=".9" style="margin-top:40px">{esc(s["sub"])}</p>'
@@ -122,9 +132,10 @@ JS = """
 const S=[...document.querySelectorAll('.scene')];const D=DURS;const T=D.reduce((a,b)=>a+b,0);
 const ease=x=>1-Math.pow(1-Math.min(1,Math.max(0,x)),3);
 window.setT=function(t){let acc=0;S.forEach((s,i)=>{const l=t-acc;const d=D[i];acc+=d;
- const vis=l>=-0.0001&&l<d;const fin=Math.min(1,l/0.25),fout=i<S.length-1?Math.min(1,(d-l)/0.25):1;
+ const vis=l>=-0.0001&&l<d;const st=!!s.dataset.st;const fin=(st||i==0&&l<0.25&&st)?1:Math.min(1,l/0.25),fout=i<S.length-1?Math.min(1,(d-l)/0.3):1;
  s.style.opacity=vis?Math.min(fin,fout):0;if(!vis)return;
  const z=1+0.03*(l/d);s.style.transform='scale('+z+')';
+ if(st){s.style.transform='none';s.querySelectorAll('.a').forEach(e=>{e.style.opacity=1;e.style.transform='none'});return}
  s.querySelectorAll('.a').forEach(e=>{const p=ease((l-parseFloat(e.dataset.in||0))/0.5);e.style.opacity=p;e.style.transform='translateY('+(30*(1-p))+'px)'});
  s.querySelectorAll('[data-count]').forEach(e=>{const v=parseFloat(e.dataset.count.replace(/\\./g,'').replace(',','.'));const p=ease((l-0.6)/1.6);
   e.textContent='R$ '+(v*p).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})});
@@ -136,7 +147,7 @@ window.showAll=function(){S.forEach(s=>{s.style.opacity=1;s.querySelectorAll('.a
 def page(scenes, reel, w, h):
     durs = [float(s.get('dur', 3.2)) for s in scenes]
     css = CSS.replace('F/', F + '/').replace('WW', str(w)).replace('HH', str(h)).replace('PADT', '210px' if reel else '84px').replace('PADB', '300px' if reel else '84px')
-    body = ''.join(f'<div class="scene">{scene_html(s, reel)}</div>' for s in scenes)
+    body = ''.join(f'<div class="scene"{" data-st=1" if s.get("tipo")=="capa" else ""}>{scene_html(s, reel)}</div>' for s in scenes)
     prog = '<div class="prog"><i></i></div>' if reel else ''
     return f'<html><head><meta charset="utf-8"><style>{css}</style></head><body><div class="bg"></div><div class="grid"></div>{body}{prog}<script>{JS.replace("DURS", json.dumps(durs))}</script></body></html>', durs
 
@@ -175,6 +186,10 @@ def carregar(pg, html):
 def reel(spec, out):
     from playwright.sync_api import sync_playwright
     scenes = spec['cenas'] if isinstance(spec, dict) else spec
+    capa = (spec.get('capa') if isinstance(spec, dict) else None)
+    if not capa:
+        c0 = scenes[0]; capa = {'tag': c0.get('tag'), 'texto': c0.get('texto') or c0.get('titulo', ''), 'destaque': c0.get('destaque')}
+    scenes = [dict(capa, tipo='capa', dur=1.1)] + list(scenes)
     html, durs = page(scenes, True, 1080, 1920)
     total = sum(durs); fps = 30; nf = int(total*fps)
     out = pathlib.Path(out); tmp = out.with_name(out.stem + '.tmp.mp4'); silent = out.with_name(out.stem + '.v.mp4'); wav = out.with_suffix('.wav')
@@ -182,6 +197,7 @@ def reel(spec, out):
     with sync_playwright() as p:
         b = p.chromium.launch(); pg = b.new_page(viewport={'width':1080,'height':1920})
         carregar(pg, html)
+        pg.evaluate('setT(0)'); pg.screenshot(path=str(out.with_name(out.stem + '-capa.jpg')), type='jpeg', quality=92)
         for i in range(nf):
             pg.evaluate(f'setT({i/fps})')
             ff.stdin.write(pg.screenshot(type='jpeg', quality=92))

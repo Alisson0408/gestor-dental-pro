@@ -40,6 +40,12 @@ Horário do carrossel: leia `horario_carrossel.txt`.
 9. Mitos ("sistema é caro", "planilha resolve", "minha recepcionista não vai usar")
 10. Bastidores do sistema: mostrar uma tela/função em ação
 
+## CAPA OBRIGATÓRIA (regra do dono — nunca publicar com tela escura)
+- Todo Reel TEM de ter `"capa"` no roteiro: `{"tag","texto","destaque","sub","selo"}` (texto = gancho de 1 frase; selo = tema curto em maiúsculas).
+  O motor monta a capa pronta (moldura dourada, logo, selo, gancho grande, "toque para assistir") como 1º quadro do vídeo — é a miniatura do feed — e salva `<nome>-capa.jpg`.
+- Confira o `-capa.jpg` antes de publicar: texto cortado ou capa escura = NÃO publique; corrija (use `"size"` menor, ex.: 100, se a frase for longa).
+- Carrossel: o slide 1 é sempre um `hook` com o gancho grande. Nunca slide 1 sem texto.
+
 ## Estratégia de conversão
 - Gancho nos 2 primeiros segundos/1º slide: dor real, pergunta direta ou número permitido. Nunca abrir com o logo.
 - Uma ideia por post. No carrossel, cada slide pede o próximo; penúltimo slide = como o sistema resolve; último = CTA.
