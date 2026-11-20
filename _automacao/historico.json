@@ -259,5 +259,14 @@
   "gancho": "Seus pacientes antigos sumiram. Dá para chamar de volta.",
   "link": "(agendado no vidIQ)",
   "aprendizado": "Lote especial de 12 pedido pelo dono; primeiro lote com CAPA obrigatória no 1º quadro do Reel."
+ },
+ {
+  "data": "2026-11-20",
+  "formato": "reel",
+  "pilar": "Bastidores do sistema (orçamento aprovado gera parcelas)",
+  "gancho": "Quanto tempo você leva para lançar as parcelas de um orçamento?",
+  "horario": "20:00",
+  "link": "(agendado no vidIQ para 20:00; postId ad4b6271-6be2-4dea-8e4e-0231a55e276e)",
+  "aprendizado": "Reel diário 20,5 s, 5 cenas + capa: gancho-pergunta (formato com mais comentários: 'Quanto custa 1 hora da sua cadeira?', 10 plays/5 comentários) + lista manual + tela 'acoes' simulando o sistema + checks + CTA Direct. Pilar 10 (bastidores) escolhido por estar livre no dia do lote de 12. O vidIQ sinalizou excesso de posts (pacing too_close) e sugeriu 20:00; aceito. Insights: Reels de 18–19/11 com 2–3 plays e retenção 37–54%; os do lote de hoje ainda sem dados. Evitar dias com >3 posts: o próprio vidIQ alerta risco de throttling."
  }
 ]
