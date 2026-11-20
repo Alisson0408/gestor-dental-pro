@@ -1,0 +1,9 @@
+{"seed": 113,
+ "capa": {"tag": "Bastidores do sistema", "texto": "Quanto tempo você leva para lançar as parcelas de um orçamento?", "destaque": "lançar as parcelas", "selo": "PARCELAS", "size": 104},
+ "cenas": [
+ {"tipo": "hook", "tag": "🦷 Para dentistas", "texto": "Quanto tempo você leva para lançar as parcelas de um orçamento?", "destaque": "lançar as parcelas", "dur": 3.4},
+ {"tipo": "lista", "tag": "Do jeito manual", "titulo": "Parcela por parcela, na mão.", "destaque": "na mão", "itens": ["Digitar cada vencimento", "Conferir no caderno", "Lembrar quem venceu", "Cobrar sem jeito"], "cor": "red", "dur": 3.8},
+ {"tipo": "acoes", "tag": "Na tela do sistema", "titulo": "Aprovou o orçamento? Pronto.", "destaque": "Pronto.", "itens": [["✅", "Orçamento aprovado", "Aprovado"], ["💰", "Parcelas geradas sozinhas", "Feito"], ["📲", "Parcela vencida", "Cobrar"]], "dur": 4.2},
+ {"tipo": "checks", "tag": "Gestor Dental PRO", "titulo": "Do orçamento ao caixa.", "destaque": "ao caixa", "itens": ["Parcelas criadas sozinhas", "Contas a receber em 1 tela", "Cobrança educada no WhatsApp", "Caixa diário"], "dur": 4.2},
+ {"tipo": "cta", "titulo": "Deixe as parcelas com o sistema.", "sub": "Diagnóstico grátis do seu consultório em 1 minuto", "botao": "Manda SISTEMA no Direct", "dur": 3.8}
+]}
