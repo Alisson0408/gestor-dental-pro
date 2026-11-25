@@ -1,0 +1,9 @@
+{"seed": 125,
+ "capa": {"tag": "Preço e custo", "texto": "Você sabe se o seu preço está abaixo da sua região?", "destaque": "abaixo da sua região", "sub": "Compare com o custo real", "selo": "ANÁLISE DE MERCADO", "size": 104},
+ "cenas": [
+ {"tipo": "hook", "tag": "🦷 Para dentistas", "texto": "Você sabe se o seu preço está abaixo da sua região?", "destaque": "abaixo da sua região", "dur": 3.4},
+ {"tipo": "lista", "tag": "Preço no chute", "titulo": "Do jeito que quase todo mundo faz.", "destaque": "quase todo mundo", "itens": ["Copiar a tabela do vizinho", "Não saber o custo da hora", "Reajustar só “quando der”", "Procedimento com prejuízo"], "cor": "red", "dur": 3.8},
+ {"tipo": "acoes", "tag": "Novidade no sistema", "titulo": "Análise de mercado.", "destaque": "mercado.", "itens": [["📊", "Custo real do procedimento", "Ver"], ["📍", "Faixa de preço da região", "Comparar"], ["⚠️", "Abaixo do preço mínimo", "Ajustar"]], "dur": 4.2},
+ {"tipo": "checks", "tag": "Gestor Dental PRO", "titulo": "Preço com base, não no chute.", "destaque": "com base", "itens": ["Custo da hora clínica", "Lucro por procedimento", "Preço mínimo", "Comparação com a região"], "dur": 4.2},
+ {"tipo": "cta", "titulo": "Descubra se o seu preço está certo.", "sub": "Diagnóstico grátis do seu consultório em 1 minuto", "botao": "Manda SISTEMA no Direct", "dur": 3.8}
+]}
