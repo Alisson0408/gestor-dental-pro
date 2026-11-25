@@ -278,5 +278,16 @@
   "link": "https://www.instagram.com/reel/DgK1o_khdXq/",
   "youtube": "(pulado: nenhum canal 'Gestor Dental' conectado no vidIQ; só o pessoal @AlissonSilva)",
   "aprendizado": "Reel 20,5 s, capa + 5 cenas: gancho-pergunta no pilar 5 (o melhor até agora: 'Quanto custa 1 hora da sua cadeira?' 10 plays, 5 comentários, 162% assistido) + lista 'preço no chute' + tela 'acoes' da Análise de mercado (custo real x faixa da região x preço mínimo) + checks + CTA Direct. Insights: lote de 12 em 20/11 teve 1–4 plays por Reel e skip 100% na maioria — muitos posts no mesmo dia diluíram alcance; os 2 melhores seguem sendo pilar 5 (preço) e pilar 3 ('Você atendeu. O paciente não pagou.', 80% assistido). Sem publicações entre 21 e 24/11. Próximos: repetir gancho-pergunta direto ao bolso do dentista, 1 post/dia."
+ },
+ {
+  "data": "2026-11-25",
+  "formato": "carrossel",
+  "pilar": "Preço e custo da hora clínica (resumo do artigo do blog)",
+  "gancho": "Você copia o preço do vizinho? O custo dele não é o seu.",
+  "horario": "20:30",
+  "artigo": "como-calcular-preco-procedimento-odontologico",
+  "link": "https://www.instagram.com/p/DgLuWv4loon/",
+  "postId": "11d43ea4-c8ff-4da7-b6b6-9b8e4878b8ac",
+  "aprendizado": "1º carrossel no modelo 'resumo do artigo do dia' (8 slides): hook-pergunta + 4 passos com os números do artigo marcados como exemplo (R$ 107/h, R$ 124 custo real, R$ 205 preço mínimo) + comparação com a região + checks do sistema (custo da hora, lucro, preço mínimo, faixa da região) + CTA Direct. Pilar 5 repetido de propósito (o artigo manda e é o pilar de melhor desempenho). Legenda pede 'Salve' (conteúdo de referência) e aponta o blog. Dica técnica: usar espaço não separável em 'R$ valor' nas notas para o motor não quebrar 'R$' no fim da linha. Slot da noite (semana ISO 48 + quarta = ímpar)."
  }
 ]
