@@ -20,6 +20,8 @@ Horário do carrossel: leia `horario_carrossel.txt`.
 - Link da bio: https://dental.aastecnologiaeditorial.com.br/comecar/?origem=Instagram%20Bio (diagnóstico de 1 minuto que filtra dentistas e leva ao WhatsApp). Página de vendas: https://dental.aastecnologiaeditorial.com.br/vendas/. Demonstração sem cadastro no próprio site.
 - Recursos: painel "dinheiro escapando" (faltas, orçamentos parados +7 dias, parcelas vencidas, glosas); lista de ações do dia; agenda com confirmação por WhatsApp (mensagem pronta, a pessoa clica em enviar — o sistema não envia sozinho); lista de espera e encaixe; funil de orçamentos com follow-up em 3, 7, 15 e 30 dias; orçamento aprovado gera parcelas sozinho; contas a receber, cobrança educada pelo WhatsApp e caixa diário; convênios e glosas por operadora, guias paradas +30 dias; prontuário com odontograma, anamnese com alertas de alergia, evolução clínica que não pode ser apagada (só retificada), termos e documentos em PDF para assinar; custos e preços (custo da hora clínica, lucro por procedimento, preço mínimo); retorno de pacientes inativos; estoque com alerta de mínimo; equipe com perfis (dono, dentista, recepção — recepção não vê dados de saúde); backup com um clique; manual completo dentro do sistema; funciona no celular; dados em servidores no Brasil.
 - Não emite nota fiscal (a parte fiscal continua com o contador).
+- Novidades (25/11/2026): **Análise de mercado** (compara o preço de cada procedimento com o custo real e com a faixa de preço da região; visão do consultório e do dentista comissionado); **documentos do atendimento** em PDF (receituário simples, de antibiótico e de controle especial, atestado com CID só se o paciente autorizar, declaração de comparecimento, pedido de exame/encaminhamento, orientações pós-operatórias), registrados sozinhos na evolução clínica.
+- Conteúdo grátis no site: **calculadora de preço** sem cadastro em https://dental.aastecnologiaeditorial.com.br/calculadora/ e **blog** em https://dental.aastecnologiaeditorial.com.br/blog/ (1 artigo novo por dia, publicado às 6h47 pela tarefa "alcance grátis").
 - Estatísticas permitidas (sempre como estão):
   - 42,2% das clínicas privadas relatam dificuldade para confirmar consultas (pesquisa Conclínica).
   - Orçamento retomado em até 15 dias: 50% a 70% de chance de fechar; depois de 30 dias, menos de 10%.
@@ -39,6 +41,13 @@ Horário do carrossel: leia `horario_carrossel.txt`.
 8. Rotina do dono: o painel da manhã, equipe e recepção
 9. Mitos ("sistema é caro", "planilha resolve", "minha recepcionista não vai usar")
 10. Bastidores do sistema: mostrar uma tela/função em ação
+
+## Carrossel = resumo do artigo do dia do blog (desde 25/11/2026)
+- Antes de escolher o tema do carrossel, leia o artigo mais recente em `_automacao/blog/posts/*.json` (maior `data`). Se ele for de hoje ou de ontem e o tema dele não foi usado em carrossel nos últimos 15 posts, **o carrossel resume esse artigo**: slide 1 = gancho com a dor/pergunta do título; slides do meio = os passos/ideias principais do artigo, com os exemplos numéricos dele (sempre como exemplo); penúltimo = como o sistema resolve; último = CTA padrão.
+- Na legenda, depois do CTA, acrescente: "📖 O passo a passo completo está no blog do Gestor Dental PRO: dental.aastecnologiaeditorial.com.br/blog" (Instagram não deixa link clicável na legenda; escreva o endereço assim).
+- Registre no `historico.json` o campo `"artigo": "<slug>"`. O pilar do carrossel é o que mais combina com o artigo; se isso repetir o pilar dos últimos 4 posts, tudo bem neste caso (o artigo manda).
+- Se não houver artigo de hoje/ontem ou ele já virou carrossel, siga o rodízio de pilares normal.
+- Uma vez por semana (no máximo), o carrossel pode divulgar a **calculadora grátis**: "Descubra quanto custa sua hora clínica" → legenda com dental.aastecnologiaeditorial.com.br/calculadora.
 
 ## CAPA OBRIGATÓRIA (regra do dono — nunca publicar com tela escura)
 - Todo Reel TEM de ter `"capa"` no roteiro: `{"tag","texto","destaque","sub","selo"}` (texto = gancho de 1 frase; selo = tema curto em maiúsculas).
