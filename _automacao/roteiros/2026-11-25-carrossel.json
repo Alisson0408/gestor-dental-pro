@@ -1,0 +1,74 @@
+{
+ "slides": [
+  {
+   "tipo": "hook",
+   "tag": "Preço do procedimento",
+   "texto": "Você copia o preço do vizinho? O custo dele não é o seu.",
+   "destaque": "não é o seu.",
+   "size": 112,
+   "sub": "4 passos para não trabalhar no prejuízo."
+  },
+  {
+   "tipo": "numero",
+   "tag": "Passo 1 · custo da hora",
+   "numero": "R$ 107/h",
+   "texto": "Custo fixo do mês ÷ horas que a cadeira realmente atende.",
+   "nota": "Exemplo: R$ 15.000 ÷ 140 h ≈ R$ 1,79 por minuto."
+  },
+  {
+   "tipo": "lista",
+   "tag": "Passo 2 · custo real",
+   "titulo": "Some no procedimento:",
+   "itens": [
+    "Minutos × custo por minuto",
+    "Materiais e descartáveis",
+    "Laboratório, se houver"
+   ],
+   "cor": "gold"
+  },
+  {
+   "tipo": "numero",
+   "tag": "Exemplo · resina de 50 min",
+   "numero": "R$ 124",
+   "texto": "de custo real: 50 min × R$ 1,79 + R$ 35 de material.",
+   "nota": "Isso antes de impostos e taxa do cartão."
+  },
+  {
+   "tipo": "numero",
+   "tag": "Passo 3 · preço mínimo",
+   "numero": "R$ 205",
+   "texto": "Custo real ÷ (1 − impostos e cartão − margem).",
+   "nota": "Exemplo: 9,5% de impostos e cartão + 30% de margem → R$ 124,29 ÷ 0,605 = R$ 205,44."
+  },
+  {
+   "tipo": "lista",
+   "tag": "Passo 4 · sua região",
+   "titulo": "Compare com o mercado:",
+   "itens": [
+    "Abaixo da média: dá p/ reajustar",
+    "Na média e margem curta: corte custo",
+    "Acima do teto: mostre diferencial"
+   ],
+   "cor": "green"
+  },
+  {
+   "tipo": "checks",
+   "tag": "No Gestor Dental PRO",
+   "titulo": "O sistema faz essa conta:",
+   "itens": [
+    "Custo da hora clínica",
+    "Lucro por procedimento",
+    "Preço mínimo",
+    "Faixa de preço da região"
+   ]
+  },
+  {
+   "tipo": "cta",
+   "titulo": "Preço certo começa no seu custo.",
+   "destaque": "seu custo",
+   "sub": "Diagnóstico grátis do seu consultório em 1 minuto",
+   "botao": "Manda SISTEMA no Direct",
+   "rodape": "Teste grátis por 7 dias, sem cartão"
+  }
+ ]
+}
