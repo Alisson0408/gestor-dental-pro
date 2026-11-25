@@ -864,7 +864,8 @@ function vEvo(p){const ls=evos(p.id);const ret=new Set(ls.filter(e=>e.retificaId
 function vDocs(p){const docs=[['anamnese','Ficha de anamnese','Histórico de saúde com declaração do paciente'],['plano','Plano de tratamento e orçamento','Situação dos dentes, procedimentos e valores'],['tcle','Termo de consentimento do tratamento','Riscos, alternativas e concordância com o plano'],['lgpd','Termo de consentimento LGPD','Autorização para tratamento de dados pessoais e de saúde'],['completo','Prontuário completo','Anamnese, odontograma, plano e evolução clínica para arquivo']];
  return `<div class="note blue" style="margin-bottom:14px">Os documentos saem em PDF prontos para imprimir. <b>A validade depende da assinatura em papel</b> do paciente (ou responsável) e do(a) dentista. Guarde as vias assinadas por no mínimo 10 anos após o último atendimento.</div>
  ${!C().cro?'<div class="note" style="margin-bottom:14px">Preencha o nome do(a) dentista, o CRO e o endereço em <a href="#config">Configurações</a> para que apareçam nos documentos.</div>':''}
- <div class="ocards">${docs.map(([k,t,s])=>`<div class="oc"><b>${t}</b><div class="small muted">${s}</div><div><button class="btn s p" data-act="pdf" data-t="${k}">Gerar PDF</button></div></div>`).join('')}</div>`}
+ <h3 style="margin:4px 0 10px">Documentos do atendimento</h3><div class="ocards" style="margin-bottom:18px">${DOCS_ATD.map(([k,t,s])=>`<div class="oc"><b>${t}</b><div class="small muted">${s}</div><div><button class="btn s g" data-act="docAtd" data-t="${k}">Preencher e gerar</button></div></div>`).join('')}</div>
+ <h3 style="margin:4px 0 10px">Prontuário e termos</h3><div class="ocards">${docs.map(([k,t,s])=>`<div class="oc"><b>${t}</b><div class="small muted">${s}</div><div><button class="btn s p" data-act="pdf" data-t="${k}">Gerar PDF</button></div></div>`).join('')}</div>`}
 
 function modalDente(n){
  const id=UI.pacSel,o=odo(id),d=(o.dentes||{})[n]||{};const fs=String(d.faces||'');
@@ -892,10 +893,10 @@ async function entregar(nome,data){
  let dl=null;try{if(window.claude&&typeof window.claude.use==='function')dl=await window.claude.use('downloads')}catch(e){}
  if(!dl){try{const url=URL.createObjectURL(data instanceof Blob?data:new Blob([data]));const a=document.createElement('a');a.href=url;a.download=nome;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),8000);return true}catch(e){toast('Download indisponível nesta visualização');return false}}
  try{await dl.save({filename:nome,data});toast('Arquivo pronto ✓');return true}catch(e){toast(e&&e.code==='declined'?'Download cancelado':'Não foi possível baixar agora');return false}}
-function mkPDF(J,titulo,p){
- const doc=new J({unit:'mm',format:'a4'});const W=210,M=18,c=C();let y=0;
+function mkPDF(J,titulo,p,prof){
+ const doc=new J({unit:'mm',format:'a4'});const W=210,M=18,c=C();let y=0;const dn=prof?prof.nome:c.dentista,dc=prof?prof.cro:c.cro;
  const header=()=>{doc.setFillColor(10,61,68);doc.rect(0,0,W,4,'F');doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(10,61,68);doc.text(c.nome||'',M,13);doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(95);
-  doc.text([c.dentista?(c.dentista+(c.cro?' — CRO '+c.cro:'')):'',c.endereco||''].filter(Boolean).join('   ·   '),M,18.5);doc.setDrawColor(215);doc.line(M,21.5,W-M,21.5);y=30};
+  doc.text([dn?(dn+(dc?' — CRO '+dc:'')):'',c.endereco||''].filter(Boolean).join('   ·   '),M,18.5);doc.setDrawColor(215);doc.line(M,21.5,W-M,21.5);y=30};
  const ensure=h=>{if(y+h>278){doc.addPage();header()}};
  const A={doc,
   h(t){ensure(12);y+=2;doc.setFont('helvetica','bold');doc.setFontSize(11.5);doc.setTextColor(10,61,68);doc.text(t,M,y);y+=6.5},
@@ -906,6 +907,7 @@ function mkPDF(J,titulo,p){
     if(b){doc.setFillColor(236,241,244);doc.rect(M,y-4,tot,h,'F')}let x=M;ls.forEach((l,i)=>{doc.setTextColor(b?60:25);doc.text(l,x+1.5,y);x+=ws[i]});y+=h;doc.setDrawColor(225);doc.line(M,y-4,M+tot,y-4)};
    ensure(16);row(cols,true);rows.forEach(r=>row(r));y+=2},
   gap(n=4){y+=n},
+  page(t){doc.addPage();header();if(t){doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(15,31,42);doc.text(t,M,y);y+=9}},
   sig(labels){ensure(36);y+=18;const g=10,w=(W-2*M-g*(labels.length-1))/labels.length;labels.forEach((l,i)=>{const x=M+i*(w+g);doc.setDrawColor(60);doc.line(x,y,x+w,y);doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(70);doc.text(doc.splitTextToSize(l,w),x,y+4.5)});y+=16},
   local(){ensure(10);doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(30);doc.text(`${c.cidade||'_______________'}, ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}.`,M,y);y+=6},
   async save(nome){const n=doc.getNumberOfPages();for(let i=1;i<=n;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(140);
@@ -1502,6 +1504,85 @@ Object.assign(A,{
   if(!(await ask(`Reajustar <b>${esc(p.nome)}</b> de ${brl(p.precoParticular)} para <b>${brl(novo)}</b>? Orçamentos já feitos não mudam.`,'Reajustar')))return;
   await put('procedimentos',{...p,precoParticular:novo,precoAnterior:p.precoParticular,reajustadoEm:hoje()});toast('Preço reajustado ✓')}
 });
+
+/* ===================== DOCUMENTOS DO ATENDIMENTO (cirurgião-dentista) ===================== */
+const DOCS_ATD=[
+ ['receita','💊 Receituário','Receita simples, de antibiótico (2 vias) ou de controle especial'],
+ ['atestado','📝 Atestado odontológico','Afastamento por dias ou horas, com CID só se o paciente autorizar'],
+ ['comparec','🕒 Declaração de comparecimento','Comprova o horário em que o paciente esteve na clínica'],
+ ['encaminha','📨 Pedido de exame / encaminhamento','Radiografia, tomografia, exames de sangue ou outro profissional'],
+ ['posop','🩹 Orientações pós-operatórias','Cuidados após extração, implante, canal, raspagem ou clareamento']
+];
+const POSOP={
+ cirurgia:['Extração / cirurgia oral',['Morda a gaze sobre o local por 30 a 40 minutos, sem trocar nem falar.','Nas primeiras 24 horas não bocheche, não cuspa e não use canudo: isso pode soltar o coágulo e causar sangramento ou alveolite.','Faça compressas de gelo (envolto em pano) por fora do rosto, 20 minutos sim e 20 minutos não, nas primeiras 24 a 48 horas.','Alimente-se com comidas frias ou mornas, líquidas ou pastosas, nas primeiras 24 horas. Evite alimentos quentes, duros, crocantes ou com sementes.','Não fume e não ingira bebidas alcoólicas durante a cicatrização.','Escove os dentes normalmente a partir do dia seguinte, com cuidado na região operada.','Durma com a cabeça mais elevada nas primeiras noites e evite esforço físico e exposição ao sol por 3 dias.','Tome somente os medicamentos prescritos, nos horários indicados, até o fim do tratamento.','Inchaço e leve desconforto nos primeiros 2 a 3 dias são normais.']],
+ implante:['Implante dentário',['Morda a gaze sobre o local por 30 a 40 minutos.','Faça compressas de gelo por fora do rosto, 20 minutos sim e 20 minutos não, nas primeiras 48 horas.','Nas primeiras 24 horas não bocheche, não cuspa e não use canudo.','Dieta fria, líquida ou pastosa nos primeiros dias. Não mastigue sobre a região do implante até ser liberado.','Não use prótese removível sobre a região sem orientação do(a) dentista.','Não fume: o cigarro é uma das principais causas de perda do implante.','Higienize a boca normalmente, com escova macia e cuidado na região operada.','Evite esforço físico por 3 a 5 dias e tome os medicamentos prescritos corretamente.','Compareça ao retorno para avaliação e remoção dos pontos.']],
+ endo:['Tratamento de canal',['Sensibilidade leve ao mastigar por alguns dias é normal.','Evite mastigar alimentos duros do lado tratado até a restauração definitiva.','O curativo/restauração provisória pode desgastar: se cair ou quebrar, avise a clínica.','Não deixe de finalizar o tratamento e fazer a restauração ou coroa definitiva: o dente tratado fica mais frágil.','Tome os medicamentos prescritos nos horários indicados.']],
+ perio:['Raspagem / periodontia',['Sensibilidade ao frio e ao doce nos primeiros dias é comum e tende a diminuir.','Pequeno sangramento ao escovar nos primeiros dias pode acontecer.','Mantenha a escovação após as refeições, com escova macia, e use fio dental todos os dias.','Evite alimentos muito quentes, gelados ou ácidos nos primeiros dias.','Não fume: o cigarro prejudica a cicatrização da gengiva.']],
+ clarea:['Clareamento dental',['Nas 48 horas seguintes, evite alimentos e bebidas com corantes: café, chá preto, vinho, refrigerante de cola, açaí, beterraba, molho de tomate e similares.','Não fume durante o tratamento.','Sensibilidade temporária é comum. Avise a clínica se for intensa.','No clareamento caseiro, use a moldeira apenas pelo tempo e na frequência indicados.']]
+};
+const lembraProf=()=>{try{return JSON.parse(localStorage.getItem('gd_prof')||'null')||{}}catch(e){return {}}};
+const campoProf=()=>{const c=C(),u=lembraProf();return [{k:'prof',label:'Profissional que assina',req:true,half:true,def:u.prof||c.dentista},{k:'cro',label:'CRO (nº e UF)',req:true,half:true,def:u.cro||c.cro,ph:'Ex.: 12345-MG'}]};
+function avisoClin(id){const a=anam(id),d=(a&&a.dados)||{},w=[];if(d.alergias)w.push('ALERGIAS: '+d.alergias);if(d.medicamentos)w.push('Usa: '+d.medicamentos);['gestante','anticoagulante','coagulacao','hipertensao','diabetes','cardiaco'].forEach(k=>{if(d[k])w.push((ANAM_CHK.find(x=>x[0]===k)||[,k])[1])});return w.length?'⚠ Anamnese: '+w.join(' · '):'Anamnese sem alertas registrados.'}
+function formDocAtd(t){
+ const p=S.pacientes.find(x=>x.id===UI.pacSel);if(!p)return;const P=campoProf(),hj=hoje();
+ const F={
+  receita:['Receituário',[...P,{k:'tipo',label:'Tipo de receita',type:'select',options:[['simples','Simples'],['antibiotico','Antibiótico (2 vias — a farmácia retém 1)'],['especial','Controle especial (2 vias)']]},
+   {k:'itens',label:'Medicamentos (um por linha)',type:'textarea',req:true,ph:'Amoxicilina 500 mg — 21 cápsulas\nTomar 1 cápsula de 8 em 8 horas por 7 dias',help:avisoClin(p.id)},
+   {k:'endereco',label:'Endereço do paciente (obrigatório no controle especial)'},{k:'data',label:'Data',type:'date',def:hj}]],
+  atestado:['Atestado odontológico',[...P,{k:'data',label:'Data do atendimento',type:'date',def:hj,half:true},{k:'dias',label:'Dias de afastamento',type:'number',half:true,help:'Deixe 0 para atestar só o período do atendimento'},
+   {k:'hIni',label:'Horário — início',type:'time',half:true},{k:'hFim',label:'Horário — fim',type:'time',half:true},
+   {k:'cid',label:'CID (opcional)',half:true,ph:'Ex.: K08.1'},{k:'autCid',label:'Paciente autoriza o CID?',type:'select',half:true,options:[['nao','Não — não imprimir'],['sim','Sim, autorizou']],help:''}]],
+  comparec:['Declaração de comparecimento',[...P,{k:'data',label:'Data',type:'date',def:hj},{k:'hIni',label:'Chegada',type:'time',half:true},{k:'hFim',label:'Saída',type:'time',half:true},{k:'acomp',label:'Acompanhante (opcional)',help:'Nome de quem acompanhou o paciente, se precisar de declaração'}]],
+  encaminha:['Pedido de exame / encaminhamento',[...P,{k:'tipo',label:'Tipo',type:'select',options:[['imagem','Pedido de exame de imagem'],['lab','Pedido de exames laboratoriais'],['enc','Encaminhamento a outro profissional']]},
+   {k:'destino',label:'Para (clínica, especialidade ou profissional)',ph:'Ex.: Clínica de radiologia / Cardiologista'},{k:'itens',label:'Exames ou motivo do encaminhamento',type:'textarea',req:true,ph:'Ex.: Tomografia computadorizada de feixe cônico — região 36-37'},
+   {k:'hipotese',label:'Hipótese diagnóstica / informação clínica',type:'textarea'},{k:'data',label:'Data',type:'date',def:hj}]],
+  posop:['Orientações pós-operatórias',[...P,{k:'tipo',label:'Procedimento realizado',type:'select',options:Object.entries(POSOP).map(([k,v])=>[k,v[0]])},{k:'retorno',label:'Data do retorno',type:'date',half:true},{k:'contato',label:'Telefone para urgência',half:true},{k:'extra',label:'Orientações adicionais (opcional)',type:'textarea'}]]
+ }[t];
+ const init={};F[1].forEach(f=>{if(f.def!=null)init[f.k]=f.def});
+ form(F[0]+' — '+p.nome,F[1],init,async v=>{try{localStorage.setItem('gd_prof',JSON.stringify({prof:v.prof,cro:v.cro}))}catch(e){}
+  const ok=await pdfAtd(t,p,v);if(ok===false)return false;
+  const resumo=({receita:()=>'Receita emitida'+(v.tipo!=='simples'?(v.tipo==='antibiotico'?' (antibiótico, 2 vias)':' (controle especial, 2 vias)'):'')+':\n'+v.itens,atestado:()=>`Atestado emitido: ${v.dias>0?v.dias+' dia(s) de afastamento':'período do atendimento'}${v.hIni?' ('+v.hIni+(v.hFim?' às '+v.hFim:'')+')':''}${v.autCid==='sim'&&v.cid?' — CID '+v.cid+' (autorizado pelo paciente)':''}.`,
+   comparec:()=>`Declaração de comparecimento emitida (${fmtD(v.data)}${v.hIni?', '+v.hIni+(v.hFim?' às '+v.hFim:''):''}).`,encaminha:()=>`${{imagem:'Pedido de exame de imagem',lab:'Pedido de exames laboratoriais',enc:'Encaminhamento'}[v.tipo]}${v.destino?' para '+v.destino:''}: ${v.itens}`,
+   posop:()=>`Entregues orientações pós-operatórias (${POSOP[v.tipo][0]})${v.retorno?'; retorno em '+fmtD(v.retorno):''}.`})[t]();
+  if(mode==='local'||CLIN_OK)await addEvo(p.id,{dataHora:agoraLocal(),proc:'',dentes:'',texto:resumo,responsavel:v.prof+' — CRO '+v.cro}).catch(()=>{});
+  toast('Documento gerado e registrado na evolução clínica')},'Gerar PDF');
+}
+async function pdfAtd(t,p,v){
+ let J;try{toast('Gerando PDF…');J=await loadJsPDF()}catch(e){toast('Não foi possível carregar o gerador de PDF. Verifique a internet.');return false}
+ const prof={nome:v.prof,cro:v.cro},ass=`${v.prof} — CRO ${v.cro}`,dt=v.data?new Date(v.data+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}):'';
+ const c=C(),lugar=X=>{X.p(`${c.cidade||'_______________'}, ${dt||new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}.`)};
+ let X;
+ if(t==='receita'){
+  const vias=v.tipo==='simples'?[null]:['1ª via — retenção da farmácia','2ª via — orientação ao paciente'];
+  const tit=v.tipo==='especial'?'Receituário de controle especial':'Receituário';
+  vias.forEach((via,i)=>{if(i===0)X=mkPDF(J,tit,null,prof);else X.page(tit);
+   if(via)X.p(via.toUpperCase(),8.5);
+   if(v.tipo==='especial'){X.h('Identificação do emitente');X.kv('Nome',v.prof);X.kv('CRO',v.cro);X.kv('Endereço',c.endereco||'—');X.kv('Cidade',c.cidade||'—')}
+   X.h('Paciente');X.kv('Nome',p.nome);if(v.endereco||v.tipo==='especial')X.kv('Endereço',v.endereco||'____________________________________________');
+   X.h('Uso interno / prescrição');X.p(v.itens,11);X.gap(2);lugar(X);X.sig([ass]);
+   if(v.tipo==='especial'){X.h('Identificação do comprador');X.p('Nome: _____________________________________   RG: _______________\nEndereço: ____________________________________________________\nCidade: ______________________   UF: ____   Telefone: _______________',9);
+    X.h('Identificação do fornecedor');X.p('Farmacêutico(a): __________________________   Data: ___/___/______',9)}});
+ }
+ else if(t==='atestado'){X=mkPDF(J,'Atestado odontológico',null,prof);
+  const per=v.hIni?` no período das ${v.hIni}${v.hFim?' às '+v.hFim:''}`:'';
+  X.p(`Atesto, para os devidos fins, que ${p.nome}${p.cpf?', CPF '+p.cpf+',':''} esteve sob meus cuidados profissionais em ${dt}${per}${v.dias>0?`, necessitando de ${v.dias} (${v.dias==1?'um':v.dias}) dia(s) de afastamento de suas atividades a partir desta data`:', devendo ser abonado o período correspondente ao atendimento'}.`,11);
+  if(v.cid&&v.autCid==='sim')X.p(`CID: ${v.cid} — informado com autorização expressa do(a) paciente.`,10);
+  X.gap(4);lugar(X);X.sig([ass]);if(v.cid&&v.autCid==='sim')X.sig(['Paciente — autorizo a inclusão do CID neste atestado'])}
+ else if(t==='comparec'){X=mkPDF(J,'Declaração de comparecimento',null,prof);
+  X.p(`Declaro, para os devidos fins, que ${p.nome}${p.cpf?', CPF '+p.cpf+',':''} compareceu a esta clínica odontológica em ${dt}${v.hIni?`, das ${v.hIni}${v.hFim?' às '+v.hFim:''}`:''}, para atendimento.`,11);
+  if(v.acomp)X.p(`Esteve acompanhado(a) por ${v.acomp}.`,11);X.gap(4);lugar(X);X.sig([ass])}
+ else if(t==='encaminha'){const tt={imagem:'Pedido de exame de imagem',lab:'Pedido de exames laboratoriais',enc:'Encaminhamento'}[v.tipo];X=mkPDF(J,tt,p,prof);
+  if(v.destino)X.kv(v.tipo==='enc'?'Encaminho a':'Ao serviço',v.destino);X.h(v.tipo==='enc'?'Motivo':'Solicito');X.p(v.itens,10.5);
+  if(v.hipotese){X.h('Informações clínicas');X.p(v.hipotese,10)}const al=avisoClin(p.id);if(al.startsWith('⚠')){X.h('Dados da anamnese');X.p(al.replace('⚠ Anamnese: ',''),9.5)}
+  if(v.tipo==='enc')X.p('Solicito avaliação e, se possível, retorno com parecer/contrarreferência. Grato(a) pela atenção.',10);X.gap(2);lugar(X);X.sig([ass])}
+ else{const [nm,ls]=POSOP[v.tipo];X=mkPDF(J,'Orientações pós-operatórias — '+nm,null,prof);X.kv('Paciente',p.nome);X.kv('Data',dt||fmtD(hoje()));
+  X.h('Cuidados em casa');ls.forEach((l,i)=>X.p(`${i+1}. ${l}`,10));if(v.extra){X.h('Orientações do(a) dentista');X.p(v.extra,10)}
+  X.h('Procure a clínica imediatamente se tiver');X.p('Sangramento que não para depois de 1 hora de compressão com gaze · febre · inchaço que aumenta depois do 3º dia · dor forte que não melhora com a medicação · dificuldade para abrir a boca, engolir ou respirar · reação alérgica (coceira, manchas na pele, falta de ar).',10);
+  X.kv('Retorno',v.retorno?fmtD(v.retorno):'—');X.kv('Contato para urgência',v.contato||c.tel||'—');X.gap(2);X.sig([ass,'Paciente — recebi e entendi as orientações'])}
+ const nomes={receita:'receita',atestado:'atestado',comparec:'declaracao-comparecimento',encaminha:'pedido-encaminhamento',posop:'orientacoes-pos-operatorias'};
+ await X.save(`${nomes[t]}-${slug(p.nome)}-${hoje()}.pdf`);
+}
+Object.assign(A,{docAtd:d=>formDocAtd(d.t)});
 
 /* ===================== ANÁLISE DE MERCADO ===================== */
 // Referência aproximada de preços particulares no Brasil (mín · média · máx), cidade de porte médio.
