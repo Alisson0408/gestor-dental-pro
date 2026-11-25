@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!-- Gestor Dental PRO — © 2026 Alisson · AAS Tecnologia Editorial. Todos os direitos reservados. ID de autoria: AAS-GDP-2026-88375282 -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de preço odontológico grátis — custo da hora clínica e preço mínimo</title>
+<meta name="description" content="Calcule grátis o custo da sua hora clínica, o custo real de cada procedimento odontológico, o lucro e o preço mínimo que você deveria cobrar. Sem cadastro.">
+<link rel="canonical" href="https://dental.aastecnologiaeditorial.com.br/calculadora/">
+<meta property="og:title" content="Calculadora grátis: quanto custa sua hora clínica e quanto cobrar por procedimento">
+<meta property="og:description" content="Descubra em 2 minutos quais procedimentos dão lucro e qual o preço mínimo de cada um. Grátis, sem cadastro.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dental.aastecnologiaeditorial.com.br/calculadora/">
+<meta name="author" content="Gestor Dental PRO · AAS Tecnologia Editorial">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de preço odontológico","url":"https://dental.aastecnologiaeditorial.com.br/calculadora/","applicationCategory":"BusinessApplication","operatingSystem":"Web","inLanguage":"pt-BR","offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"},"publisher":{"@type":"Organization","name":"Gestor Dental PRO"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Como calcular o custo da hora clínica do dentista?","acceptedAnswer":{"@type":"Answer","text":"Some todos os custos fixos do mês do consultório (aluguel, salários, contador, energia, sistema, pró-labore etc.) e divida pelo número de horas em que a cadeira realmente atende no mês."}},
+{"@type":"Question","name":"Como calcular o preço mínimo de um procedimento odontológico?","acceptedAnswer":{"@type":"Answer","text":"Calcule o custo real (tempo de cadeira × custo por minuto + materiais + laboratório) e divida por (1 − impostos − taxa do cartão − margem desejada)."}},
+{"@type":"Question","name":"A calculadora é gratuita?","acceptedAnswer":{"@type":"Answer","text":"Sim. A calculadora é gratuita, não exige cadastro e os dados ficam apenas no seu navegador."}}]}</script>
+<style>
+:root{--bg:#f6f8f9;--ink:#0f1f2a;--mut:#5b6c78;--line:#e2e8ec;--pri:#0e5a63;--pri2:#0a3d44;--deep:#072a30;--gold:#c79a3b;--gold2:#e6c57a;--red:#cf3f3f;--redbg:#fdecec;--grn:#1d845a;--grnbg:#e7f5ee;--amb:#a86a07;--ambbg:#fdf3e1}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--pri)}.w{max-width:1080px;margin:0 auto;padding:0 18px}
+.top{background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:13px 0}
+.top .w{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.logo{color:#fff;text-decoration:none;font-weight:800;font-size:17px}.logo b{color:var(--gold2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 18px;font-weight:700;font-size:15px;text-decoration:none;border:1.5px solid transparent;cursor:pointer;font-family:inherit;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}.btn.g{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#2b1d02}.btn.o{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn.wa{background:#1fa855;color:#fff}.btn.s{padding:8px 12px;font-size:13px;border-radius:10px}
+.hero{background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;padding:34px 0 70px}
+.hero h1{font-size:34px;line-height:1.15;margin:8px 0 10px;letter-spacing:-.6px;max-width:760px}.hero h1 em{font-style:normal;color:var(--gold2)}
+.hero p{color:#cfe2e5;font-size:16.5px;max-width:680px;margin:0}.tag{display:inline-block;background:rgba(230,197,122,.15);color:var(--gold2);font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:20px;letter-spacing:.3px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(7,42,48,.06)}
+.lift{margin-top:-46px}.grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+h2{font-size:21px;margin:0 0 4px;letter-spacing:-.2px}.sub{color:var(--mut);font-size:14px;margin:0 0 16px}
+.step{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--pri);color:#fff;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-right:8px;vertical-align:2px}
+label{display:block;font-size:13px;font-weight:700;color:#33454f;margin-bottom:5px}
+.inp{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:11px;font:inherit;font-size:15px;background:#fff;color:var(--ink)}.inp:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 3px rgba(14,90,99,.12)}
+.f small{display:block;color:var(--mut);font-size:12px;margin-top:4px}
+.kpi{background:var(--bg);border-radius:14px;padding:14px 16px}.kpi .l{font-size:12px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}.kpi .v{font-size:25px;font-weight:800;margin-top:2px}.kpi .h{font-size:12.5px;color:var(--mut)}
+.kpi.big{background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff}.kpi.big .l,.kpi.big .h{color:#bcd6d9}.kpi.big .v{color:var(--gold2)}
+.proc{border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:#fff}
+.proc.bad{border-color:#f0b9b9;background:#fffafa}.proc.mid{border-color:#f1d6a4;background:#fffdf7}.proc.ok{border-color:#bfe3cf}
+.ph{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;gap:10px;align-items:end}
+.rm{border:0;background:transparent;color:var(--mut);font-size:18px;cursor:pointer;padding:8px}.rm:hover{color:var(--red)}
+.res{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:14px;align-items:center}
+.res b{font-size:15px}.pill{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:800}
+.pill.bad{background:var(--redbg);color:var(--red)}.pill.mid{background:var(--ambbg);color:var(--amb)}.pill.ok{background:var(--grnbg);color:var(--grn)}
+.red{color:var(--red)}.grn{color:var(--grn)}.amb{color:var(--amb)}
+.cta{background:linear-gradient(135deg,var(--deep),var(--pri));color:#fff;border-radius:18px;padding:26px;display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center}
+.cta h3{margin:0 0 6px;font-size:22px;color:var(--gold2)}.cta p{margin:0;color:#cfe2e5}.cta .acts{display:flex;flex-direction:column;gap:10px}
+.faq h3{font-size:17px;margin:20px 0 4px}.faq p{margin:0;color:#33454f}
+footer{color:var(--mut);font-size:12.5px;text-align:center;padding:24px 0 36px}
+.sticky{position:sticky;bottom:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-top:1px solid var(--line);padding:10px 0;display:none}
+.sticky .w{display:flex;gap:10px;align-items:center;justify-content:space-between}
+@media(max-width:860px){.g4{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr}.cta{grid-template-columns:1fr}.ph{grid-template-columns:1fr 1fr}.ph .nm{grid-column:1/-1}.ph .rmw{grid-column:2;justify-self:end;grid-row:1}.ph .nm{grid-row:1}.sticky{display:block}}
+@media(max-width:520px){.hero h1{font-size:27px}.g2{grid-template-columns:1fr}.kpi .v{font-size:21px}.top .btn{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><div class="w"><a class="logo" href="/vendas/">🦷 Gestor Dental <b>PRO</b></a><a class="btn g s" href="/?cadastro">Testar o sistema grátis</a></div></div>
+
+<section class="hero"><div class="w">
+ <span class="tag">CALCULADORA GRÁTIS · SEM CADASTRO</span>
+ <h1>Quanto custa a sua <em>hora clínica</em> — e quanto você deveria cobrar por cada procedimento?</h1>
+ <p>Preencha os custos do consultório e veja na hora o custo real, o lucro e o preço mínimo de cada procedimento. Os dados ficam só no seu navegador.</p>
+</div></section>
+
+<main class="w">
+ <div class="card lift">
+  <h2><span class="step">1</span>Custos do consultório</h2>
+  <p class="sub">Use números do mês. Na dúvida, um valor aproximado já mostra muita coisa.</p>
+  <div class="grid g3">
+   <div class="f"><label for="fixo">Custo fixo mensal (R$)</label><input class="inp" id="fixo" type="number" inputmode="decimal" min="0" step="any"><small>Aluguel, salários, contador, energia, internet, sistema, manutenção e seu pró-labore.</small></div>
+   <div class="f"><label for="horas">Horas clínicas por mês</label><input class="inp" id="horas" type="number" inputmode="decimal" min="1" step="any"><small>Só as horas em que a cadeira atende de verdade. Ex.: 7 h × 20 dias = 140.</small></div>
+   <div class="f"><label for="margem">Margem de lucro desejada (%)</label><input class="inp" id="margem" type="number" inputmode="decimal" min="0" max="90" step="any"><small>Quanto quer que sobre de lucro sobre o preço.</small></div>
+   <div class="f"><label for="imp">Impostos sobre o faturamento (%)</label><input class="inp" id="imp" type="number" inputmode="decimal" min="0" step="any"><small>Confirme a sua alíquota com o contador.</small></div>
+   <div class="f"><label for="cartao">Taxa média do cartão (%)</label><input class="inp" id="cartao" type="number" inputmode="decimal" min="0" step="any"><small>Considere débito, crédito e parcelado.</small></div>
+   <div class="f"><label for="rep">Repasse a dentista comissionado (%)</label><input class="inp" id="rep" type="number" inputmode="decimal" min="0" max="90" step="any"><small>Deixe 0 se você é o dono e atende sozinho.</small></div>
+  </div>
+  <div class="grid g4" style="margin-top:18px">
+   <div class="kpi big"><div class="l">Custo da hora clínica</div><div class="v" id="kHora">—</div><div class="h">custo fixo ÷ horas</div></div>
+   <div class="kpi"><div class="l">Custo por minuto</div><div class="v" id="kMin">—</div><div class="h">só custo fixo</div></div>
+   <div class="kpi"><div class="l">Deduções no preço</div><div class="v" id="kDed">—</div><div class="h">impostos + cartão + repasse</div></div>
+   <div class="kpi"><div class="l">Procedimentos no prejuízo</div><div class="v" id="kPrej">—</div><div class="h" id="kPrejH">dos que você preencheu</div></div>
+  </div>
+ </div>
+
+ <div class="card" style="margin-top:16px">
+  <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap"><div><h2><span class="step">2</span>Seus procedimentos</h2><p class="sub">Troque os exemplos pelos seus: tempo de cadeira, material, laboratório e o preço que você cobra.</p></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn o s" id="add">+ Procedimento</button><button class="btn o s" id="reset">Restaurar exemplos</button></div></div>
+  <div id="lista"></div>
+ </div>
+
+ <div class="cta" style="margin-top:16px">
+  <div><h3>Gostou? No Gestor Dental PRO isso fica automático.</h3><p>O sistema recalcula tudo quando seus custos mudam, compara seus preços com o mercado da sua região, avisa qual procedimento está dando prejuízo e ainda cuida da agenda, das faltas, dos orçamentos e das cobranças. 7 dias grátis, sem cartão.</p></div>
+  <div class="acts"><a class="btn g" href="/?cadastro">Testar 7 dias grátis</a><a class="btn wa" id="waRes" href="#" target="_blank" rel="noopener">Receber este resultado no WhatsApp</a><a class="btn o" id="share" href="#" target="_blank" rel="noopener">Enviar a calculadora a um colega</a></div>
+ </div>
+
+ <div class="card faq" style="margin-top:16px">
+  <h2>Como a calculadora faz a conta</h2>
+  <h3>Custo da hora clínica</h3><p>É o custo fixo mensal dividido pelas horas em que a cadeira realmente atende. Ele mostra quanto cada minuto de atendimento custa, mesmo antes de gastar qualquer material.</p>
+  <h3>Custo real do procedimento</h3><p>Minutos de cadeira × custo por minuto + materiais + laboratório.</p>
+  <h3>Lucro por atendimento</h3><p>Preço cobrado menos impostos, taxa do cartão e repasse, menos o custo real.</p>
+  <h3>Preço mínimo</h3><p>Custo real ÷ (1 − impostos − cartão − repasse − margem desejada). Abaixo dele, o procedimento não atinge a margem que você definiu.</p>
+  <h3>Os resultados são exatos?</h3><p>São tão bons quanto os números que você colocar. A calculadora não substitui a orientação do seu contador sobre impostos.</p>
+  <p style="margin-top:18px">Quer o passo a passo com exemplos? Leia <a href="/blog/como-calcular-preco-procedimento-odontologico/">Como calcular o preço de um procedimento odontológico</a>.</p>
+ </div>
+</main>
+<div class="sticky"><div class="w"><span style="font-size:13.5px"><b id="sHora">—</b> por hora clínica</span><a class="btn g s" href="/?cadastro">Testar grátis</a></div></div>
+<footer>© 2026 Gestor Dental PRO · AAS Tecnologia Editorial · <a href="/blog/">Blog</a> · <a href="/vendas/">Conheça o sistema</a> · <a href="/termos.html">Termos</a></footer>
+
+<script>
+const WA='5519989522187',KEY='gd_calc_v1';
+const PADRAO={fixo:15000,horas:140,margem:30,imp:6,cartao:3.5,rep:0,procs:[
+ ['Avaliação + profilaxia',40,15,0,180],['Restauração em resina',50,35,0,250],['Tratamento de canal (molar)',120,80,0,1200],
+ ['Extração simples',40,25,0,280],['Coroa de porcelana',60,40,550,1800],['Prótese total',90,60,650,900]]};
+const $=s=>document.querySelector(s);
+const brl=v=>isFinite(v)?v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}):'—';
+const pct=v=>isFinite(v)?(v*100).toFixed(1).replace('.',',')+'%':'—';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S;
+function load(){try{const j=JSON.parse(localStorage.getItem(KEY)||'null');if(j&&Array.isArray(j.procs))return j}catch(e){}return JSON.parse(JSON.stringify(PADRAO))}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const num=id=>{const v=parseFloat(String($('#'+id).value).replace(',','.'));return isFinite(v)?v:0};
+function calc(){
+ const hora=S.horas>0?S.fixo/S.horas:0,min=hora/60,ded=(S.imp+S.cartao+S.rep)/100,den=1-ded-S.margem/100;
+ return {hora,min,ded,den,ps:S.procs.map(([nome,m,mat,lab,preco])=>{
+  const custo=(+m||0)*min+(+mat||0)+(+lab||0),liq=(+preco||0)*(1-ded),lucro=liq-custo,mg=preco>0?lucro/preco:NaN,minimo=den>0?custo/den:NaN;
+  const st=!(preco>0)?'':lucro<0?'bad':mg<S.margem/100?'mid':'ok';return {nome,custo,lucro,mg,minimo,st,preco:+preco||0}})}}
+function linha(p,i){const [nome,m,mat,lab,preco]=p;
+ return `<div class="proc" data-i="${i}"><div class="ph">
+ <div class="f nm"><label>Procedimento</label><input class="inp" data-k="0" value="${esc(nome)}" placeholder="Ex.: Restauração"></div>
+ <div class="f"><label>Minutos</label><input class="inp" data-k="1" type="number" inputmode="decimal" min="0" value="${m}"></div>
+ <div class="f"><label>Material (R$)</label><input class="inp" data-k="2" type="number" inputmode="decimal" min="0" step="any" value="${mat}"></div>
+ <div class="f"><label>Laboratório (R$)</label><input class="inp" data-k="3" type="number" inputmode="decimal" min="0" step="any" value="${lab}"></div>
+ <div class="f"><label>Seu preço (R$)</label><input class="inp" data-k="4" type="number" inputmode="decimal" min="0" step="any" value="${preco}"></div>
+ <div class="rmw"><button class="rm" title="Remover" data-rm="${i}" aria-label="Remover procedimento">✕</button></div></div><div class="res"></div></div>`}
+function desenhaLista(){$('#lista').innerHTML=S.procs.map(linha).join('')||'<p class="sub">Nenhum procedimento. Toque em “+ Procedimento”.</p>';atualiza()}
+function atualiza(){
+ const r=calc();$('#kHora').textContent=brl(r.hora);$('#sHora').textContent=brl(r.hora);$('#kMin').textContent=brl(r.min);
+ $('#kDed').textContent=(r.ded*100).toFixed(1).replace('.',',')+'%';
+ const com=r.ps.filter(p=>p.st),prej=com.filter(p=>p.st==='bad');$('#kPrej').textContent=com.length?prej.length:'—';$('#kPrej').className='v '+(prej.length?'red':'grn');
+ $('#kPrejH').textContent=com.length?`de ${com.length} com preço`:'preencha os preços';
+ document.querySelectorAll('.proc').forEach(el=>{const p=r.ps[+el.dataset.i];if(!p)return;el.className='proc '+(p.st||'');
+  el.querySelector('.res').innerHTML=`<span>Custo real: <b>${brl(p.custo)}</b></span><span>Lucro: <b class="${p.lucro<0?'red':'grn'}">${p.preco?brl(p.lucro):'—'}</b> ${p.preco?'<span class="'+(p.lucro<0?'red':'')+'">('+pct(p.mg)+')</span>':''}</span><span>Preço mínimo: <b>${brl(p.minimo)}</b></span>`+
+  (p.st==='bad'?`<span class="pill bad">Prejuízo de ${brl(-p.lucro)} por atendimento</span>`:p.st==='mid'?`<span class="pill mid">Margem abaixo de ${S.margem}%</span>`:p.st==='ok'?'<span class="pill ok">Dá lucro</span>':'')});
+ if(r.den<=0)$('#kDed').innerHTML+=' <span class="red" style="font-size:13px">margem impossível</span>';
+ const txt='Olá! Usei a calculadora do Gestor Dental PRO.\nMinha hora clínica custa '+brl(r.hora)+'.\n'+r.ps.filter(p=>p.preco).map(p=>`• ${p.nome}: cobro ${brl(p.preco)}, lucro ${brl(p.lucro)}, mínimo ${brl(p.minimo)}`).join('\n')+'\nQuero conhecer o sistema.';
+ $('#waRes').href='https://wa.me/'+WA+'?text='+encodeURIComponent(txt);
+ $('#share').href='https://wa.me/?text='+encodeURIComponent('Achei uma calculadora grátis que mostra quanto custa a hora clínica e o preço mínimo de cada procedimento: https://dental.aastecnologiaeditorial.com.br/calculadora/');
+ save()}
+function init(){S=load();['fixo','horas','margem','imp','cartao','rep'].forEach(k=>{const el=$('#'+k);el.value=S[k];el.addEventListener('input',()=>{S[k]=num(k);atualiza()})});desenhaLista()}
+$('#lista').addEventListener('input',e=>{const el=e.target,box=el.closest('.proc');if(!box||el.dataset.k==null)return;const i=+box.dataset.i,k=+el.dataset.k;S.procs[i][k]=k===0?el.value:(parseFloat(el.value)||0);atualiza()});
+$('#lista').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(!b)return;S.procs.splice(+b.dataset.rm,1);desenhaLista()});
+$('#add').onclick=()=>{S.procs.push(['',30,0,0,0]);desenhaLista();const ins=document.querySelectorAll('.proc .nm input');ins[ins.length-1].focus()};
+$('#reset').onclick=()=>{if(!confirm('Voltar aos valores de exemplo? Seus números serão apagados.'))return;S=JSON.parse(JSON.stringify(PADRAO));['fixo','horas','margem','imp','cartao','rep'].forEach(k=>$('#'+k).value=S[k]);desenhaLista()};
+init();
+</script>
+</body>
+</html>

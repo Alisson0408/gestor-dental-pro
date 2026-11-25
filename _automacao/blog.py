@@ -62,8 +62,8 @@ def head(titulo,desc,url,extra=''):
 <meta name="author" content="Gestor Dental PRO · AAS Tecnologia Editorial">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>{CSS}</style>{extra}</head><body>
-<div class="top"><div class="w"><a class="logo" href="/">🦷 Gestor Dental <b>PRO</b></a><a class="tb" href="/comecar/">Diagnóstico grátis</a></div></div>'''
-FOOT='<footer>© {a} Gestor Dental PRO · AAS Tecnologia Editorial · <a href="/blog/">Blog</a> · <a href="/vendas/">Conheça o sistema</a></footer></body></html>'
+<div class="top"><div class="w"><a class="logo" href="/">🦷 Gestor Dental <b>PRO</b></a><a class="tb" href="/calculadora/">Calculadora grátis</a></div></div>'''
+FOOT='<footer>© {a} Gestor Dental PRO · AAS Tecnologia Editorial · <a href="/blog/">Blog</a> · <a href="/calculadora/">Calculadora grátis de preço</a> · <a href="/vendas/">Conheça o sistema</a></footer></body></html>'
 def main():
     posts=[]
     for f in sorted(glob.glob(os.path.join(ROOT,'_automacao/blog/posts/*.json'))):
@@ -91,7 +91,7 @@ def main():
     idx=f'''{head('Blog do Gestor Dental PRO — gestão e finanças para dentistas','Artigos práticos para dentistas: precificação, faltas, orçamentos, inadimplência, convênios e gestão do consultório.',SITE+'/blog/')}
 <div class="w"><h1 style="margin-top:26px">Gestão e finanças para dentistas</h1><p class="lead">Conteúdo prático para o consultório lucrar mais com os mesmos pacientes.</p><div class="lista">{lista}</div></div>{FOOT.format(a=ano)}'''
     os.makedirs(os.path.join(ROOT,'blog'),exist_ok=True);open(os.path.join(ROOT,'blog','index.html'),'w',encoding='utf-8').write(idx)
-    urls=[('/', None),('/vendas/',None),('/comecar/',None),('/como-funciona/',None),('/blog/',posts[0]['data'] if posts else None)]+[(f'/blog/{p["slug"]}/',p['data']) for p in posts]
+    urls=[('/', None),('/vendas/',None),('/comecar/',None),('/como-funciona/',None),('/calculadora/',None),('/blog/',posts[0]['data'] if posts else None)]+[(f'/blog/{p["slug"]}/',p['data']) for p in posts]
     sm='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{SITE}{u}</loc>'+(f'<lastmod>{d}</lastmod>' if d else '')+'</url>\n' for u,d in urls)+'</urlset>\n'
     open(os.path.join(ROOT,'sitemap.xml'),'w',encoding='utf-8').write(sm)
     open(os.path.join(ROOT,'robots.txt'),'w',encoding='utf-8').write(f'User-agent: *\nAllow: /\nDisallow: /_automacao/\nSitemap: {SITE}/sitemap.xml\n')
