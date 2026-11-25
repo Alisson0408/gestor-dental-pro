@@ -401,7 +401,7 @@ function navHtml(m){
  const so=mode==='nuvem'&&(!CLIN||!ativa(CLIN));
  return VIEWS.filter(([k])=>so?(k==='admin'&&ADMIN)||k==='manual':k==='prontuario'?CLIN_OK:k==='config'?(mode==='local'||PAPEL==='dono'):k==='equipe'?(mode==='nuvem'&&PAPEL==='dono'):k==='admin'?ADMIN:true).map(([k,l,d])=>`<a href="#${k}" class="${UI.view===k?'on':''}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>${l}${badge[k]?`<span class="ct">${badge[k]}</span>`:''}</a>`).join('');
 }
-function rota(){const h=location.hash.slice(1);UI.view=VIEWS.some(v=>v[0]===h)?h:'painel';if(UI.view!=='prontuario')UI.pacSel=null;UI.q='';UI.mq='';$('#side').classList.remove('open');$('#scrim').classList.remove('on');render();window.scrollTo(0,0)}
+function rota(){const h=location.hash.slice(1);UI.view=VIEWS.some(v=>v[0]===h)?h:'painel';if(UI.view!=='prontuario')UI.pacSel=null;UI.mkt=false;UI.q='';UI.mq='';$('#side').classList.remove('open');$('#scrim').classList.remove('on');render();window.scrollTo(0,0)}
 window.addEventListener('hashchange',rota);
 $('#scrim').onclick=()=>{$('#side').classList.remove('open');$('#scrim').classList.remove('on')};
 
@@ -635,10 +635,11 @@ function formEst(init){
 
 /* ===================== PRECIFICAÇÃO ===================== */
 function vPreco(){
+ if(UI.mkt)return vMercado();
  const c=C(),ch=custoHora();
  const ls=S.procedimentos.map(p=>({p,x:calcProc(p)})).sort((a,b)=>a.p.nome.localeCompare(b.p.nome));
  const prej=ls.filter(o=>o.x.margemP<0||(o.x.margemC!=null&&o.x.margemC<0));
- return topo('Custos e preços','Descubra quanto custa cada hora de cadeira e se cada procedimento dá lucro',`<button class="btn p" data-act="novoProc">+ Procedimento</button>`)+
+ return topo('Custos e preços','Descubra quanto custa cada hora de cadeira e se cada procedimento dá lucro',`<button class="btn g" data-act="mercado">📊 Análise de mercado</button><button class="btn p" data-act="novoProc">+ Procedimento</button>`)+
  `<div class="grid g4" style="margin-bottom:14px">${kpi('Custo da hora clínica',brl(ch),`${brl(c.custoFixo)} ÷ ${c.horasMes} h/mês`)}${kpi('Custo por minuto',brl(ch/60),'só custo fixo')}${kpi('Deduções sobre o preço',(c.impostos+c.taxaCartao).toFixed(1).replace('.',',')+'%',`impostos ${c.impostos}% + cartão ${c.taxaCartao}%`)}${kpi('Procedimentos no prejuízo',prej.length,'particular ou convênio',prej.length?'bad':'ok')}</div>
  <div class="note blue" style="margin-bottom:14px">Os custos fixos, horas trabalhadas, impostos e margem desejada ficam em <a href="#config">Configurações</a>. O <b>preço mínimo</b> já inclui custo da cadeira, material, laboratório, impostos, taxa do cartão e sua margem de ${c.margemAlvo}%.</div>
  ${blocoAlertasLucro()}<div class="card">${ls.length?`<div class="tw"><table><thead><tr><th>Procedimento</th><th>Custo real</th><th>Particular</th><th>Lucro particular</th><th>Convênio</th><th>Lucro convênio</th><th>Preço mínimo</th><th></th></tr></thead><tbody>${ls.map(({p,x})=>`<tr class="${x.margemP<0||(x.margemC!=null&&x.margemC<0)?'alert':''}"><td><b>${esc(p.nome)}</b><div class="small muted">${p.minutos||0} min · mat. ${brl(p.material)}${p.lab?' · lab. '+brl(p.lab):''}</div></td><td class="nowrap">${brl(x.custo)}</td><td class="nowrap">${brl(p.precoParticular)}</td><td class="nowrap ${x.margemP<0?'red':'grn'}"><b>${brl(x.margemP)}</b><div class="small">${pct(x.margemPp)}</div></td><td class="nowrap">${p.precoConvenio?brl(p.precoConvenio):'—'}</td><td class="nowrap ${x.margemC==null?'':x.margemC<0?'red':'grn'}"><b>${x.margemC==null?'—':brl(x.margemC)}</b></td><td class="nowrap"><b>${brl(x.sugerido)}</b>${p.precoParticular&&p.precoParticular<x.sugerido?'<div class="small amb">abaixo do ideal</div>':''}</td>
@@ -1500,6 +1501,111 @@ Object.assign(A,{
  ajustarPreco:async d=>{const p=S.procedimentos.find(x=>x.id===d.id);const novo=preco10(calcProc(p).sugerido);if(!isFinite(novo)||novo<=0)return;
   if(!(await ask(`Reajustar <b>${esc(p.nome)}</b> de ${brl(p.precoParticular)} para <b>${brl(novo)}</b>? Orçamentos já feitos não mudam.`,'Reajustar')))return;
   await put('procedimentos',{...p,precoParticular:novo,precoAnterior:p.precoParticular,reajustadoEm:hoje()});toast('Preço reajustado ✓')}
+});
+
+/* ===================== ANÁLISE DE MERCADO ===================== */
+// Referência aproximada de preços particulares no Brasil (mín · média · máx), cidade de porte médio.
+// O dentista pode ajustar a referência de cada procedimento para a realidade da cidade dele.
+const MKT_REF=[
+ [/aval|consulta|primeira/,'Avaliação / consulta',[80,150,250]],
+ [/profil|limpeza/,'Limpeza / profilaxia',[120,200,350]],
+ [/raspag|periodon|tartaro/,'Raspagem / periodontia',[150,300,500]],
+ [/radiograf|raio.?x|periapical/,'Radiografia',[30,60,100]],
+ [/canal|endodon/,'Tratamento de canal',[500,950,1600]],
+ [/restaura|resina|obtura/,'Restauração em resina',[150,250,400]],
+ [/siso|inclus|terceiro molar/,'Extração de siso',[400,700,1200]],
+ [/extra|exodon/,'Extração simples',[150,250,400]],
+ [/clarea.*(consult|laser)/,'Clareamento de consultório',[700,1100,1800]],
+ [/clarea/,'Clareamento caseiro',[500,800,1200]],
+ [/implante/,'Implante (unidade)',[2000,3500,5000]],
+ [/lente|faceta.*(porcel|ceram)/,'Lente / faceta de porcelana',[1500,2200,3500]],
+ [/faceta/,'Faceta em resina',[300,500,800]],
+ [/nucleo|pino/,'Pino / núcleo',[250,400,700]],
+ [/coroa|protese fixa/,'Coroa (porcelana/cerâmica)',[1200,1800,3000]],
+ [/dentadura|protese total/,'Prótese total',[900,1600,3000]],
+ [/protese|ppr/,'Prótese removível',[900,1500,2500]],
+ [/placa|bruxis/,'Placa de bruxismo',[300,550,900]],
+ [/manuten.*(orto|aparelho)|orto.*manut/,'Manutenção de aparelho',[100,180,300]],
+ [/aparelho|ortodon/,'Instalação de aparelho',[600,1200,2500]],
+ [/selant/,'Selante',[60,100,180]],
+ [/fluor/,'Aplicação de flúor',[50,90,150]]
+];
+const MKT_REG=[['0.85','Cidade pequena / interior'],['1','Cidade média'],['1.2','Capital / bairro nobre']];
+function mktRef(p){
+ if(+p.mercadoMed>0)return {min:+p.mercadoMin||+p.mercadoMed*.7,med:+p.mercadoMed,max:+p.mercadoMax||+p.mercadoMed*1.4,fonte:'sua referência',proprio:true};
+ const n=norm(p.nome),r=MKT_REF.find(([re])=>re.test(n));if(!r)return null;
+ const f=+(UI.mktReg||C().regiaoMercado||1);
+ return {min:r[2][0]*f,med:r[2][1]*f,max:r[2][2]*f,fonte:'referência '+r[1],proprio:false};
+}
+function mktCalc(p){
+ const c=C(),x=calcProc(p),ref=mktRef(p),rep=(+c.repasseDentista||0)/100,preco=+p.precoParticular||0;
+ const deduz=(c.impostos+c.taxaCartao)/100,horas=(+p.minutos||0)/60;
+ const dent=preco*rep;                              // quanto o dentista recebe
+ const clin=x.liqP-x.custo-dent;                    // lucro que fica no consultório
+ const clinPp=preco?clin/preco:NaN;
+ const alvo=c.margemAlvo/100;
+ const lucroMed=ref?ref.med*(1-deduz)-x.custo-ref.med*rep:null; // lucro do consultório se cobrar a média
+ const pos=ref?(preco<ref.min?'abaixo':preco>ref.max?'acima':preco<ref.med*.95?'medio-baixo':preco>ref.med*1.05?'medio-alto':'media'):'sem';
+ let v,cor,txt;
+ if(!preco){v='Sem preço';cor='gry';txt='Cadastre o preço particular para analisar.'}
+ else if(clin<0){v='Prejuízo';cor='red';txt=`O consultório perde ${brl(-clin)} a cada atendimento.`+(ref&&ref.med>preco?` O mercado cobra em média ${brl(ref.med)} — reajustar resolve.`:` Mesmo o mercado cobrando ${ref?brl(ref.med):'menos'}, o custo está alto: reveja tempo de cadeira, material ou laboratório.`)}
+ else if(clinPp<alvo){v='Margem apertada';cor='amb';txt=`Sobra ${pct(clinPp)} (meta ${c.margemAlvo}%).`+(ref&&preco<ref.med?` Há espaço para subir até ${brl(ref.med)} sem sair da média do mercado.`:ref?' O preço já está na média do mercado: o caminho é reduzir custo.':'')}
+ else if(pos==='acima'){v='Acima do mercado';cor='blu';txt=`Lucro ótimo (${pct(clinPp)}), mas o preço passa do teto da região (${brl(ref.max)}). Justifique com diferencial ou pode perder pacientes.`}
+ else if(pos==='abaixo'){v='Vantajoso — pode cobrar mais';cor='grn';txt=`Dá lucro (${pct(clinPp)}), mas está abaixo do mercado. Cobrando a média (${brl(ref.med)}) o lucro iria para ${brl(lucroMed)} por atendimento.`}
+ else {v='Vantajoso';cor='grn';txt=`Margem de ${pct(clinPp)}, acima da meta de ${c.margemAlvo}%`+(ref?' e preço alinhado ao mercado.':'.')}
+ const desde=addDias(hoje(),-90),feitos=S.agenda.filter(a=>a.status==='compareceu'&&a.data>=desde&&norm(a.proc)===norm(p.nome)).length;
+ return {p,x,ref,preco,dent,dentHora:horas>0?dent/horas:0,clin,clinPp,lucroMed,pos,v,cor,txt,feitos,
+  extraMes:ref&&preco>0&&preco<ref.med?(ref.med-preco)*(1-deduz-rep)*feitos/3:0,
+  conv:p.precoConvenio>0?{liq:x.liqC-(+p.precoConvenio*rep),cobre:x.liqC-(+p.precoConvenio*rep)>=0}:null};
+}
+function barraMkt(o){
+ if(!o.ref||!o.preco)return '';
+ const lo=Math.min(o.ref.min,o.preco)*.9,hi=Math.max(o.ref.max,o.preco)*1.05,P=v=>((v-lo)/(hi-lo)*100).toFixed(1);
+ return `<div style="position:relative;height:30px;margin:10px 0 4px"><div style="position:absolute;top:11px;left:0;right:0;height:8px;border-radius:8px;background:var(--line)"></div>
+ <div style="position:absolute;top:11px;height:8px;border-radius:8px;left:${P(o.ref.min)}%;width:${P(o.ref.max)-P(o.ref.min)}%;background:linear-gradient(90deg,#9fd8b8,#3c9d6b,#9fd8b8)"></div>
+ <div title="Média do mercado" style="position:absolute;top:6px;left:${P(o.ref.med)}%;width:2px;height:18px;background:var(--ink);opacity:.5"></div>
+ <div title="Seu preço" style="position:absolute;top:3px;left:calc(${P(o.preco)}% - 12px);width:24px;height:24px;border-radius:50%;background:var(--gold);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.25)"></div></div>
+ <div class="small muted" style="display:flex;justify-content:space-between"><span>mín. ${brl(o.ref.min)}</span><span>média ${brl(o.ref.med)}</span><span>máx. ${brl(o.ref.max)}</span></div>`;
+}
+function vMercado(){
+ const c=C(),rep=+c.repasseDentista||0,vis=UI.mktVis||'clinica',reg=String(UI.mktReg||c.regiaoMercado||1);
+ const ls=S.procedimentos.map(mktCalc).sort((a,b)=>({red:0,amb:1,blu:2,grn:3,gry:4}[a.cor]-{red:0,amb:1,blu:2,grn:3,gry:4}[b.cor])||a.clinPp-b.clinPp);
+ const comPreco=ls.filter(o=>o.preco>0),vant=comPreco.filter(o=>o.cor==='grn'||o.cor==='blu');
+ const fat=sum(comPreco,o=>o.preco*Math.max(o.feitos,1)),margMed=fat?sum(comPreco,o=>o.clin*Math.max(o.feitos,1))/fat:NaN;
+ const abaixo=comPreco.filter(o=>o.pos==='abaixo'||o.pos==='medio-baixo'),extra=sum(ls,o=>o.extraMes);
+ const head=topo('📊 Análise de mercado','Seu preço × custo real × preço praticado na região: descubra se cada serviço é vantajoso',`<button class="btn" data-act="mktSair">⟵ Custos e preços</button>`);
+ if(!ls.length)return head+`<div class="card">${vazio('Nenhum procedimento cadastrado','Cadastre seus procedimentos em Custos e preços para fazer a análise de mercado.',`<button class="btn p" data-act="novoProc">+ Procedimento</button>`)}</div>`;
+ const card=o=>{const p=o.p;
+  const linhaVis=vis==='dentista'
+   ?`<div class="grid g3" style="gap:8px;margin-top:10px">${mini('Dentista recebe',brl(o.dent),rep?rep+'% do valor':'defina o repasse')}${mini('Ganho por hora',brl(o.dentHora),(p.minutos||0)+' min de cadeira')}${mini('Fica no consultório',brl(o.clin),pct(o.clinPp),o.clin<0?'red':'grn')}</div>`
+   :`<div class="grid g3" style="gap:8px;margin-top:10px">${mini('Custo real',brl(o.x.custo),'cadeira + material + lab.')}${mini('Lucro do consultório',brl(o.clin),pct(o.clinPp)+(rep?' · após repasse':''),o.clin<0?'red':'grn')}${mini('Se cobrar a média',o.lucroMed==null?'—':brl(o.lucroMed),o.ref?'preço '+brl(o.ref.med):'sem referência',o.lucroMed!=null&&o.lucroMed<0?'red':'')}</div>`;
+  return `<div class="card" style="margin-bottom:12px;${o.cor==='red'?'border-left:4px solid var(--red)':o.cor==='amb'?'border-left:4px solid var(--amb)':''}">
+  <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap"><div><b style="font-size:15px">${esc(p.nome)}</b><div class="small muted">Seu preço: <b>${o.preco?brl(o.preco):'—'}</b>${o.ref?` · ${esc(o.ref.fonte)}`:' · sem referência de mercado'}</div></div><span class="pill ${o.cor}">${o.v}</span></div>
+  ${barraMkt(o)}${linhaVis}
+  <p class="small" style="margin:10px 0 0;line-height:1.5">${o.txt}${o.conv?` <b>Convênio:</b> ${o.conv.cobre?'<span class="grn">cobre o custo</span>':`<span class="red">não cobre o custo (${brl(o.conv.liq-o.x.custo)})</span>`}.`:''}${o.feitos?` <span class="muted">Feito ${o.feitos}x nos últimos 90 dias.</span>`:''}</p>
+  <div class="acts" style="margin-top:10px">${o.ref&&o.preco&&o.preco<o.ref.med&&o.cor!=='blu'?`<button class="btn s g" data-act="mktAplicar" data-id="${p.id}">Ajustar para a média (${brl(preco10(o.ref.med))})</button>`:''}<button class="btn s" data-act="mktRef" data-id="${p.id}">${o.ref&&o.ref.proprio?'Editar':'Informar'} preço da região</button><button class="btn s" data-act="editProc" data-id="${p.id}">Editar custos</button></div></div>`};
+ return head+
+ `<div class="bar" style="justify-content:space-between"><div class="tabs">${[['clinica','🏥 Visão do consultório'],['dentista','🦷 Visão do dentista']].map(([k,l])=>`<button class="${vis===k?'on':''}" data-act="mktVis" data-t="${k}">${l}</button>`).join('')}</div>
+ <div class="tabs">${MKT_REG.map(([k,l])=>`<button class="${reg===k?'on':''}" data-act="mktReg" data-t="${k}">${l}</button>`).join('')}</div></div>
+ <div class="grid g4" style="margin-bottom:14px">${kpi('Margem média do consultório',pct(margMed),`meta ${c.margemAlvo}%`,isFinite(margMed)?(margMed<0?'bad':margMed<c.margemAlvo/100?'warn':'ok'):'')}${kpi('Serviços vantajosos',`${vant.length} de ${comPreco.length}`,'lucro acima da meta','ok')}${kpi('Abaixo da média do mercado',abaixo.length,'espaço para reajuste',abaixo.length?'warn':'')}${kpi('Ganho extra possível',brl(extra)+'/mês','cobrando a média, no volume atual',extra>0?'ok':'')}</div>
+ <div class="note blue" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1">${vis==='dentista'?`Repasse ao dentista: <b>${rep}%</b> do valor do procedimento. ${rep?'Mostra quanto o dentista ganha por atendimento e por hora de cadeira, e quanto sobra para o consultório.':'Se o dentista trabalha por comissão, informe o percentual.'}`:`A faixa verde é o preço praticado na região; a bolinha dourada é o seu preço. ${rep?`O lucro já desconta ${rep}% de repasse ao dentista.`:''}`} As referências são estimativas: toque em <b>Informar preço da região</b> para usar valores da sua cidade.</span><button class="btn s" data-act="mktRepasse">% do dentista: ${rep}%</button></div>
+ ${ls.map(card).join('')}`;
+}
+const mini=(l,v,h,cls='')=>`<div style="background:var(--bg,#f4f6f8);border-radius:10px;padding:9px 10px"><div class="small muted">${l}</div><b class="${cls}" style="font-size:15px">${v}</b><div class="small muted">${h}</div></div>`;
+Object.assign(A,{
+ mercado:()=>{UI.mkt=true;render();window.scrollTo(0,0)},
+ mktSair:()=>{UI.mkt=false;render();window.scrollTo(0,0)},
+ mktVis:d=>{UI.mktVis=d.t;render()},
+ mktReg:async d=>{UI.mktReg=d.t;if(mode==='local'||PAPEL==='dono')await saveCfg({regiaoMercado:+d.t});else render()},
+ mktRepasse:()=>form('Repasse ao dentista',[{k:'repasseDentista',label:'Percentual que o dentista recebe por procedimento (%)',type:'number',help:'Use 0 se o dentista é o dono e não recebe comissão. Comum em clínicas: 30% a 50%.'}],{repasseDentista:C().repasseDentista||0},
+  async v=>{if(mode==='nuvem'&&PAPEL!=='dono'){toast('Apenas o dono altera o repasse.');return false}if(v.repasseDentista<0||v.repasseDentista>90){toast('Informe um percentual entre 0 e 90');return false}await saveCfg({repasseDentista:v.repasseDentista});toast('Repasse atualizado')}),
+ mktRef:d=>{const p=S.procedimentos.find(x=>x.id===d.id),r=mktRef(p)||{};
+  form('Preço na sua região — '+p.nome,[{k:'mercadoMin',label:'Menor preço que você vê (R$)',type:'number',half:true},{k:'mercadoMax',label:'Maior preço (R$)',type:'number',half:true},{k:'mercadoMed',label:'Preço médio na região (R$)',type:'number',req:true,help:'Pesquise 3 a 5 clínicas da sua cidade (site, Instagram, WhatsApp). Deixe 0 para voltar à referência automática.'}],
+   {mercadoMin:Math.round(r.min||0),mercadoMed:Math.round(r.med||0),mercadoMax:Math.round(r.max||0)},
+   async v=>{await put('procedimentos',{...p,...v});toast(v.mercadoMed>0?'Referência da região salva':'Voltou para a referência automática')})},
+ mktAplicar:async d=>{const p=S.procedimentos.find(x=>x.id===d.id),r=mktRef(p);if(!r)return;const novo=preco10(r.med);
+  if(!(await ask(`Ajustar <b>${esc(p.nome)}</b> de ${brl(p.precoParticular)} para <b>${brl(novo)}</b> (média do mercado)? Orçamentos já feitos não mudam.`,'Ajustar')))return;
+  await put('procedimentos',{...p,precoParticular:novo,precoAnterior:p.precoParticular,reajustadoEm:hoje()});toast('Preço ajustado ✓')}
 });
 
 /* ===================== RENDER ===================== */
