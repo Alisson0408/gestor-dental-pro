@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /_automacao/
+Sitemap: https://dental.aastecnologiaeditorial.com.br/sitemap.xml
