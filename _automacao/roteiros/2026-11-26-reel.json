@@ -1,0 +1,9 @@
+{"seed": 1126,
+ "capa": {"tag": "Faltas", "texto": "Quanto custa a cadeira vazia no seu mês?", "destaque": "cadeira vazia", "sub": "Faça a conta das faltas", "selo": "FALTAS", "size": 108},
+ "cenas": [
+ {"tipo": "hook", "tag": "🦷 Para dentistas", "texto": "Quanto custa a cadeira vazia no seu mês?", "destaque": "cadeira vazia", "dur": 3.4},
+ {"tipo": "numero", "tag": "Exemplo de cálculo", "numero": "R$ 7.794", "texto": "por mês perdidos com faltas", "nota": "Exemplo: 60 consultas/semana, 12% de faltas, R$ 250 por consulta", "dur": 4.2},
+ {"tipo": "lista", "tag": "Por que faltam", "titulo": "Quase nunca é descaso.", "destaque": "descaso.", "itens": ["Esqueceu a consulta", "Confundiu o dia", "Ninguém confirmou", "Horário vago sem encaixe"], "cor": "red", "dur": 3.8},
+ {"tipo": "checks", "tag": "Gestor Dental PRO", "titulo": "Cadeira ocupada, sem correria.", "destaque": "ocupada", "itens": ["Confirmação pelo WhatsApp", "Mensagem pronta para enviar", "Lista de espera e encaixe", "Faltas no painel da manhã"], "dur": 4.2},
+ {"tipo": "cta", "titulo": "Descubra quanto suas faltas custam.", "sub": "Diagnóstico grátis do seu consultório em 1 minuto", "botao": "Manda SISTEMA no Direct", "dur": 3.8}
+]}
