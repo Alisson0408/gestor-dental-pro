@@ -36,7 +36,7 @@ Objetivo: trazer dentistas para o Gestor Dental PRO **sem gastar com anúncios**
 
 ## Pauta (marque com a data quando publicar)
 1. Como calcular o preço de um procedimento odontológico — 2026-11-25
-2. Como reduzir faltas no consultório odontológico
+2. Como reduzir faltas no consultório odontológico — 2026-11-26
 3. Mensagem de confirmação de consulta pelo WhatsApp: modelos que funcionam
 4. Follow-up de orçamento odontológico: quando e como retomar o paciente
 5. Como cobrar paciente inadimplente sem constrangimento
@@ -70,3 +70,4 @@ Objetivo: trazer dentistas para o Gestor Dental PRO **sem gastar com anúncios**
 Uberlândia (MG) · Uberaba (MG) · Araguari (MG) · Patos de Minas (MG) · Ituiutaba (MG) · Campinas (SP) · Piracicaba (SP) · Limeira (SP) · Americana (SP) · Sumaré (SP) · Jundiaí (SP) · Ribeirão Preto (SP) · Franca (SP) · São José do Rio Preto (SP) · Goiânia (GO) · Anápolis (GO) · Belo Horizonte (MG) · Contagem (MG) · Juiz de Fora (MG) · Montes Claros (MG) · Londrina (PR) · Maringá (PR) · Curitiba (PR) · Campo Grande (MS) · Brasília (DF)
 
 Registro de uso das cidades (uma por linha, `Cidade — AAAA-MM-DD`):
+Uberlândia (MG) — 2026-11-26
