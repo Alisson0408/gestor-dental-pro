@@ -1,0 +1,81 @@
+{
+ "slides": [
+  {
+   "tipo": "hook",
+   "tag": "Confirmação de consulta",
+   "texto": "Sua mensagem de confirmação pode estar fazendo o paciente faltar.",
+   "destaque": "fazendo o paciente faltar.",
+   "size": 104,
+   "sub": "O que ela precisa ter, quando enviar e 3 modelos prontos."
+  },
+  {
+   "tipo": "checks",
+   "tag": "Passo 1 · o essencial",
+   "titulo": "Toda confirmação precisa ter:",
+   "itens": [
+    "Nome do paciente",
+    "Dia da semana, data e hora",
+    "Nome do dentista",
+    "Responda 1 ou 2",
+    "Saída fácil p/ remarcar"
+   ]
+  },
+  {
+   "tipo": "lista",
+   "tag": "Passo 2 · quando enviar",
+   "titulo": "O momento certo:",
+   "itens": [
+    "48 h antes: 1ª mensagem",
+    "24 h antes: quem não respondeu",
+    "No dia: procedimento longo",
+    "Nunca às 23h"
+   ],
+   "cor": "gold"
+  },
+  {
+   "tipo": "hook",
+   "tag": "Modelo 1 · padrão (48 h)",
+   "texto": "“Olá, Ana! Sua consulta com a Dra. Paula é quinta, 12/03, às 14h. Responda 1 para confirmar ou 2 para remarcar.”",
+   "destaque": "Responda 1 para confirmar ou 2 para remarcar.",
+   "size": 70,
+   "sub": "Curta, direta, resposta de um toque."
+  },
+  {
+   "tipo": "lista",
+   "tag": "Modelos 2 e 3 · respostas",
+   "titulo": "Nunca deixe sem retorno:",
+   "itens": [
+    "Confirmou: “Perfeito, até lá!”",
+    "Remarcar: ofereça 2 horários",
+    "Sumiu: “sem problema, avise”"
+   ],
+   "cor": "green"
+  },
+  {
+   "tipo": "numero",
+   "tag": "Horário vago vira receita",
+   "numero": "R$ 1.200",
+   "texto": "a mais no mês com a lista de espera preenchendo 6 desmarcações.",
+   "nota": "Exemplo: 6 encaixes × R$ 200 de ticket médio. Em 1 ano, R$ 14.400."
+  },
+  {
+   "tipo": "checks",
+   "tag": "No Gestor Dental PRO",
+   "titulo": "A agenda já faz isso:",
+   "itens": [
+    "Confirmação por WhatsApp",
+    "Mensagem pronta, é só enviar",
+    "Lista de espera e encaixe",
+    "Funciona no celular"
+   ]
+  },
+  {
+   "tipo": "cta",
+   "titulo": "Confirmação boa é cadeira cheia.",
+   "destaque": "cadeira cheia",
+   "sub": "Diagnóstico grátis do seu consultório em 1 minuto",
+   "botao": "Manda SISTEMA no Direct",
+   "rodape": "Teste grátis por 7 dias, sem cartão"
+  }
+ ]
+}
