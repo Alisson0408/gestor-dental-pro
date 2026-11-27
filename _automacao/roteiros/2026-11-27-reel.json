@@ -1,0 +1,9 @@
+{"seed": 1127,
+ "capa": {"tag": "Inadimplência", "texto": "Seu paciente não é caloteiro. Ninguém lembrou ele.", "destaque": "Ninguém lembrou ele.", "sub": "Cobrança sem constrangimento", "selo": "COBRANÇA", "size": 100},
+ "cenas": [
+ {"tipo": "hook", "tag": "🦷 Para dentistas", "texto": "Seu paciente não é caloteiro. Ninguém lembrou ele.", "destaque": "Ninguém lembrou ele.", "dur": 3.6},
+ {"tipo": "numero", "tag": "Média nos consultórios", "numero": "6,7%", "texto": "de inadimplência", "nota": "É dinheiro de tratamento já feito, esperando alguém cobrar", "dur": 4.0},
+ {"tipo": "lista", "tag": "Por que a parcela atrasa", "titulo": "Quase nunca é má-fé.", "destaque": "má-fé.", "itens": ["Ninguém avisou do vencimento", "Cobrar dá vergonha", "Parcelas no caderno", "Atraso que ninguém viu"], "cor": "red", "dur": 3.8},
+ {"tipo": "acoes", "tag": "Gestor Dental PRO", "titulo": "Parcelas vencidas hoje.", "destaque": "vencidas", "itens": [["💬", "Lembrete educado pronto", "Enviar"], ["📅", "Parcela vencida há 5 dias", "Cobrar"], ["✅", "Pagamento recebido", "Baixar"]], "dur": 4.2},
+ {"tipo": "cta", "titulo": "Receba sem constrangimento.", "sub": "Diagnóstico grátis do seu consultório em 1 minuto", "botao": "Manda SISTEMA no Direct", "dur": 3.8}
+]}
