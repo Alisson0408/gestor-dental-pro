@@ -38,7 +38,7 @@ Objetivo: trazer dentistas para o Gestor Dental PRO **sem gastar com anúncios**
 1. Como calcular o preço de um procedimento odontológico — 2026-11-25
 2. Como reduzir faltas no consultório odontológico — 2026-11-26
 3. Mensagem de confirmação de consulta pelo WhatsApp: modelos que funcionam — 2026-11-27
-4. Follow-up de orçamento odontológico: quando e como retomar o paciente
+4. Follow-up de orçamento odontológico: quando e como retomar o paciente — 2026-11-28
 5. Como cobrar paciente inadimplente sem constrangimento
 6. Custo da hora clínica: como calcular e por que ele muda tudo
 7. Vale a pena atender convênio odontológico? Como fazer a conta
@@ -72,3 +72,4 @@ Uberlândia (MG) · Uberaba (MG) · Araguari (MG) · Patos de Minas (MG) · Itui
 Registro de uso das cidades (uma por linha, `Cidade — AAAA-MM-DD`):
 Uberlândia (MG) — 2026-11-26
 Uberaba (MG) — 2026-11-27
+Araguari (MG) — 2026-11-28
